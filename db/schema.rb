@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_123102) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_123103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -41,10 +41,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_123102) do
 
   create_table "reminders", force: :cascade do |t|
     t.datetime "date_time"
-    t.bigint "user_id", null: false
+    t.bigint "note_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_reminders_on_user_id"
+    t.index ["note_id"], name: "index_reminders_on_note_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -62,5 +62,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_123102) do
   add_foreign_key "ai_images", "notes"
   add_foreign_key "notes", "categories"
   add_foreign_key "notes", "users"
-  add_foreign_key "reminders", "users"
+  add_foreign_key "reminders", "notes"
 end
