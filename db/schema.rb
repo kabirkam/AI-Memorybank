@@ -29,7 +29,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_123102) do
 
   create_table "notes", force: :cascade do |t|
     t.text "text"
-    t.binary "audio"
     t.boolean "archived"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
