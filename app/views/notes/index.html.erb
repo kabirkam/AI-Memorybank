@@ -1,0 +1,4 @@
+<p>Inbox<p>
+<% @notes.each do |note| %>
+  <li><%= link_to note.text, note_path(note) %></li>
+<%end %>
