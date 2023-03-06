@@ -57,10 +57,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_154748) do
 
   create_table "notes", force: :cascade do |t|
     t.text "text"
-    t.binary "audio"
-    t.boolean "archived"
+    t.boolean "archived", default: false
     t.bigint "user_id", null: false
-    t.bigint "category_id", null: false
+    t.bigint "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_notes_on_category_id"
