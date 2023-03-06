@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_06_123531) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_06_123102) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "ai_images", force: :cascade do |t|
+    t.bigint "note_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["note_id"], name: "index_ai_images_on_note_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -31,20 +33,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_123531) do
     t.boolean "archived"
     t.bigint "user_id", null: false
     t.bigint "category_id", null: false
-    t.bigint "ai_image_id", null: false
-    t.bigint "reminders_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["ai_image_id"], name: "index_notes_on_ai_image_id"
     t.index ["category_id"], name: "index_notes_on_category_id"
-    t.index ["reminders_id"], name: "index_notes_on_reminders_id"
     t.index ["user_id"], name: "index_notes_on_user_id"
   end
 
   create_table "reminders", force: :cascade do |t|
     t.datetime "date_time"
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,8 +59,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_123531) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "notes", "ai_images"
+  add_foreign_key "ai_images", "notes"
   add_foreign_key "notes", "categories"
-  add_foreign_key "notes", "reminders", column: "reminders_id"
   add_foreign_key "notes", "users"
+  add_foreign_key "reminders", "users"
 end
