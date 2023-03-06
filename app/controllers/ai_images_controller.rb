@@ -1,0 +1,2 @@
+class AiImagesController < ApplicationController
+end
