@@ -21,3 +21,6 @@ note1.audio.attach(
 note1.save
 
 puts 'finished'
+
+
+# File.new(URI.open('https://res.cloudinary.com/dojufit8k/video/upload/v1678122343/test-audio1_ixoswq.mp3'))

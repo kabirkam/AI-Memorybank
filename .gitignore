@@ -41,3 +41,4 @@
 *.swp
 .DS_Store
 .env
+/app/assets/test-audio-files
