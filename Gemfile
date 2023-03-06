@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # login/logout package
 gem "devise"
 
+gem "cloudinary"
+
 ruby "3.1.2"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
