@@ -12,3 +12,7 @@ class CreateNotes < ActiveRecord::Migration[7.0]
     end
   end
 end
+
+
+rails active_storage:install
+rails db:migrate
