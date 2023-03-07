@@ -57,9 +57,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_154748) do
 
   create_table "notes", force: :cascade do |t|
     t.text "text"
-    t.boolean "archived", default: false
+    t.binary "audio"
+    t.boolean "archived"
     t.bigint "user_id", null: false
-    t.bigint "category_id"
+    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_notes_on_category_id"
@@ -68,10 +69,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_154748) do
 
   create_table "reminders", force: :cascade do |t|
     t.datetime "date_time"
-    t.bigint "note_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["note_id"], name: "index_reminders_on_note_id"
+    t.index ["user_id"], name: "index_reminders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -91,5 +92,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_06_154748) do
   add_foreign_key "ai_images", "notes"
   add_foreign_key "notes", "categories"
   add_foreign_key "notes", "users"
-  add_foreign_key "reminders", "notes"
+  add_foreign_key "reminders", "users"
 end
