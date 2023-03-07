@@ -1,26 +1,24 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light d-flex">
-  <div class="">
-    <a class="navbar-brand" href="#">Inbox</a>
+
+<%# this is a img button  %>
+<div class="nav d-flex profile justify-content-between align-items-center">
+  <button class="button-85"><%= link_to "Inbox", notes_path %></button>
+
+  <div class="image_outer_container">
+    <div class="image_inner_container">
+      <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <img src="https://avatars.githubusercontent.com/u/56178404?v=4">
+      </button>
+    </div>
   </div>
-
-  <div class="">
-    <a class="navbar-brand" href="#">About us</a>
-  </div>
-
-  <div class="">
-    <a class="navbar-brand" href="#">More</a>
-  </div>
-
-</nav>
+</div>
 
 
+<%# this is a background img %>
 <div class="stage">
+
   <div class="actor"></div>
   <div class="actor"></div>
   <div class="actor"></div>
-
-
-
 
     <div class="box d-flex">
       <div class="box-2 d-flex">
@@ -29,5 +27,49 @@
         </button>
       </div>
     </div>
+</div>
 
+
+
+<!-- Modal bootstrap -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body nav-menu">
+
+      <ul class="menu">
+      <li>
+        Profile
+        <ul class="sub-menu">
+          <li>Change name</li>
+          <li>Edit background image</li>
+          <li>Edit profile image</li>
+        </ul>
+      </li>
+
+      <li>
+        Settings
+        <ul class="sub-menu">
+          <li>Language</li>
+          <li>Note text type</li>
+        </ul>
+      </li>
+
+      <li>
+        Favorite notes
+        <ul class="sub-menu">
+        </ul>
+      </li>
+
+      <li>
+        Log Out
+        <ul class="sub-menu">
+        </ul>
+      </li>
+    </ul>
+
+
+      </div>
+    </div>
+  </div>
 </div>
