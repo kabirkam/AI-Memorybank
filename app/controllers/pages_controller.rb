@@ -33,7 +33,7 @@ class PagesController < ApplicationController
     # return note.text
     # add logic to show the transcribed message
     respond_to do |format|
-      format.json { render :json => note }  # note, no :location or :status options
+      format.json { render json: note }
     end
   end
 end
