@@ -50,7 +50,8 @@
           const crsfToken = document.querySelector("meta[name='csrf-token']").content;
           // const myKey = process.env.OPENAPI_API_KEY;
           // console.log(myKey);
-          console.log('Hi there Im in console')
+
+          console.log('Making the call to the backend')
           fetch("/transcript", {
             method: "POST",
             headers: {"X-CSRF-Token": crsfToken},

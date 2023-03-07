@@ -17,12 +17,8 @@ class PagesController < ApplicationController
     tmpfile.write(content)
     tmpfile.rewind
     puts 'transcribing using Whisper API..'
-    response = client.translate(
-      parameters: {
-        model: "whisper-1",
-        file: tmpfile
-      }
-    )
+    # debugger
+    response = client.translate( parameters: { model: "whisper-1", file: tmpfile } )
     tmpfile.close
     tmpfile.unlink
     puts 'api done'
