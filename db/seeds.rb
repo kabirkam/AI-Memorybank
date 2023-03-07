@@ -18,6 +18,10 @@ note1.audio.attach(
   filename: "test-audio1.mp3",
   io: URI.open('https://res.cloudinary.com/dojufit8k/video/upload/v1678122343/test-audio1_ixoswq.mp3')
 )
+# note1.ai_images.attach(
+#   filename: "car1.jpg",
+#   io: URI.open('https://www.topgear.com/sites/default/files/news-listicle/image/jaguar_xj_r_sport_003.jpg?w=1654&h=930')
+# )
 note1.save
 
 puts 'finished'

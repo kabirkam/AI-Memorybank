@@ -11,6 +11,5 @@ Rails.application.routes.draw do
   resources :notes do
     resources :reminders
     resources :categories
-    resources :ai_images
   end
 end
