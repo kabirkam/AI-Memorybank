@@ -30,7 +30,10 @@ class PagesController < ApplicationController
     note.user = current_user
     note.save
     puts "#{note.id} transcribed! #{note.text[0..100]}..."
-    @text = note.text
+    # return note.text
     # add logic to show the transcribed message
+    respond_to do |format|
+      format.json { render :json => note }  # note, no :location or :status options
+    end
   end
 end
