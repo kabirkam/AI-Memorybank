@@ -82,5 +82,6 @@ test:
 production:
   <<: *default
   database: ai_mbank_production
-  username: ai_mbank
+  # username: ai_mbank
+  username: <%= ENV["AI_MBANK_DATABASE_USER"] %>
   password: <%= ENV["AI_MBANK_DATABASE_PASSWORD"] %>
