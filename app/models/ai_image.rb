@@ -1,2 +1,0 @@
-class AiImage < ApplicationRecord
-end
