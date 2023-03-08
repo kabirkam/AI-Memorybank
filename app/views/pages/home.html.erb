@@ -26,7 +26,7 @@
                 </label>
               </div>
               <div class="d-grid">
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" type="submit">Sign
+                <button class="btn btn-primary btn-login text-uppercase fw-bold" id="email-sign-in" type="submit">Sign
                   in</button>
               </div>
               <hr class="my-4">
@@ -47,6 +47,12 @@
     </div>
   </div>
 </body>
+
+<script type="text/javascript">
+    document.getElementById("email-sign-in").onclick = function () {
+        location.href = "/notes/new";
+    };
+</script>
 
 <%# Thanks to devise you have access to these 2 vars %>
 <%# user_signed_in?

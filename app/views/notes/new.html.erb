@@ -22,7 +22,7 @@
 
     <div class="box d-flex">
       <div class="box-2 d-flex">
-        <button class="button rec-effect-4">
+        <button class="button rec-effect-4" id='microphone-button'>
           <i class="fa fa-microphone"></i>
         </button>
       </div>
@@ -73,3 +73,9 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+    document.getElementById("microphone-button").onclick = function () {
+        location.href = "/test";
+    };
+</script>
