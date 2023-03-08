@@ -1,0 +1,24 @@
+.note {
+  display:flex;
+  img {
+    width: 30%;
+  }
+  border: 1px solid #C49645;
+}
+
+.text{
+  padding: 10px;
+  font-size: medium;
+}
+
+a {
+  color: #C49645;
+  text-decoration: none;
+}
+
+.notes-container{
+
+  margin: 40px 20px 10px;
+  border: 1px solid;
+  padding: 20px;
+}
