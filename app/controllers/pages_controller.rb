@@ -11,28 +11,27 @@ class PagesController < ApplicationController
   end
 
   def voice_to_text
-    # debugger
     client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
-    note = Note.new
     puts 'building tmp file and getting mp3 data from file'
     tmpfile = Tempfile.new(['tmp', '.mp3'], binmode: true)
     content = params["files"].tempfile.read
     tmpfile.write(content)
     tmpfile.rewind
     puts 'transcribing using Whisper API..'
-    # debugger
     response = client.translate(parameters: { model: "whisper-1", file: tmpfile })
     tmpfile.close
     tmpfile.unlink
     puts 'api done'
-    note.text = response["text"]
-    note.user = current_user
-    note.save
-    puts "#{note.id} transcribed! #{note.text[0..100]}..."
-    # return note.text
-    # add logic to show the transcribed message
+
+    # save note
+    @note = Note.new
+    @note.text = response["text"]
+    @note.user = current_user
+    @note.save
+    puts "#{@note.id} transcribed! #{@note.text[0..100]}..."
+
     respond_to do |format|
-      format.json { render json: note }
+      format.json { render json: @note }
     end
   end
 
@@ -44,15 +43,6 @@ class PagesController < ApplicationController
     payload.each do |sentence|
       image_urls.push(client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 1 }))
     end
-    # img_urls = []
-    # payload.each do |sentence|
-    #   response = client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 2 })
-    #   response["data"].each do |data|
-    #     img_urls.push(data["url"])
-    #   end
-    # end
-
-    # debugger
 
     respond_to do |format|
       format.json { render json: image_urls }
