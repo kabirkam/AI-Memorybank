@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "/profile", to: "pages#profile"
   get '/test', to: "pages#test"
   post '/transcript', to: "pages#voice_to_text"
+  post '/imagify', to: "pages#generate_imgs"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
