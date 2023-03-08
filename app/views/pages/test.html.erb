@@ -39,12 +39,19 @@
 
           // creating audio element and append the element to audioContainer.
           const audio  = document.createElement("audio");
+          const imagifyButton = document.createElement("div"); //imagify
+          imagifyButton.classList.add('btn');
+          imagifyButton.classList.add('btn-primary');
+          imagifyButton.innerText = 'Imagify';
+          imagifyButton.controls = true;
+
           audio.controls = true;
           const source  = document.createElement("source");
           source.src = URL.createObjectURL(audioBlob);
           audio.appendChild(source);
-          console.log(audio);
+          // console.log(audio);
           audioContainer.appendChild(audio);
+          audioContainer.insertAdjacentHTML("afterend", "<br><br><p>------------------*******-------------------</p><br><br>");
 
           // Make fetch request to Rails.
           const crsfToken = document.querySelector("meta[name='csrf-token']").content;
@@ -57,8 +64,11 @@
           })
           // .then(response => console.log(response.json()))
           .then(response => response.json())
-          .then(data => {
-            audioContainer.insertAdjacentHTML("beforeend", `<h2 class="mb-5">${data.text}</h2>`)
+          .then(note => {
+            audioContainer.insertAdjacentHTML("beforeend", `<h2 class="mb-5">${note.text}</h2>`);
+            // audioContainer.insertAdjacentHTML("beforeend", `<button id="${note.id}" onClick="imagify(this.id)">B1</button>`);
+            imagifyButton.addEventListener ("click", (ev) => { imagify(note, ev); }, false);
+            audioContainer.appendChild(imagifyButton);
             });
         });
 
@@ -72,6 +82,40 @@
             mediaRecorder.stop();
           }
         })
+
+        // EventListener to toggle recorder
+
+        function imagify(note, ev)
+          {
+              console.log('hello world');
+              console.log('note is: ',note);
+              const elem = ev.target
+              console.log('elem_id is: ',elem);
+              console.log(typeof note);
+              console.log('see above');
+              // Make fetch request to Rails.
+              const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+              fetch("/imagify", {
+                method: "POST",
+                headers: {"X-CSRF-Token": crsfToken, 'Content-Type': 'application/json'},
+                body: JSON.stringify(note)
+              })
+              .then(response => response.json())
+              .then(sentences => {
+                // const url = sentences[0]["data"][0]["url"];
+                sentences.forEach(sentence => {
+                  // console.log(sentence["data"]);
+                  elem.insertAdjacentHTML("afterend", "<br>");
+                  elem.insertAdjacentHTML("afterend", "<br>");
+                  sentence["data"].forEach(url => {
+                    console.log(url["url"]);
+                    const img = document.createElement("img");
+                    img.src = url["url"];
+                    elem.parentNode.appendChild(img);
+                    })
+                  });
+                });
+          }
       });
   </script>
 </div>
