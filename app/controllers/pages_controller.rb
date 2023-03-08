@@ -29,7 +29,6 @@ class PagesController < ApplicationController
     @note.user = current_user
     @note.save
     puts "#{@note.id} transcribed! #{@note.text[0..100]}..."
-
     respond_to do |format|
       format.json { render json: @note }
     end
@@ -43,7 +42,6 @@ class PagesController < ApplicationController
     payload.each do |sentence|
       image_urls.push(client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 1 }))
     end
-
     respond_to do |format|
       format.json { render json: image_urls }
     end
