@@ -6,13 +6,13 @@ class PagesController < ApplicationController
 
   def profile
   end
-  
+
   def test
   end
 
   def voice_to_text
     # debugger
-    client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
+    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
     note = Note.new
     puts 'building tmp file and getting mp3 data from file'
     tmpfile = Tempfile.new(['tmp', '.mp3'], binmode: true)
@@ -21,7 +21,7 @@ class PagesController < ApplicationController
     tmpfile.rewind
     puts 'transcribing using Whisper API..'
     # debugger
-    response = client.translate( parameters: { model: "whisper-1", file: tmpfile } )
+    response = client.translate(parameters: { model: "whisper-1", file: tmpfile })
     tmpfile.close
     tmpfile.unlink
     puts 'api done'
@@ -39,7 +39,7 @@ class PagesController < ApplicationController
   def generate_imgs
     note = Note.find(params[:id])
     payload = note.text.split('.')
-    client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
+    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
     image_urls = []
     payload.each do |sentence|
       image_urls.push(client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 1 }))
@@ -59,16 +59,14 @@ class PagesController < ApplicationController
     end
   end
 
-
-
   def chatgpt
-    client = OpenAI::Client.new(access_token: ENV['OPENAI_API_KEY'])
+    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
     @note = @note || Note.new
     puts 'Expanding descriptions using ChatGPT API..'
     prefix = 'describe in a highly detailed way and in less than 15 words an image with the idea,'
     content = "Remember to call back Mum"
     payload = "#{prefix} '#{content}'"
-    response = client.chat( parameters: { model: "gpt-3.5-turbo", messages: [{ role: "user", content: payload}], temperature: 0.7 })
+    response = client.chat(parameters: { model: "gpt-3.5-turbo", messages: [{ role: "user", content: payload }], temperature: 0.7 })
     # response = client.chat( parameters: { model: "text-davinci-002", messages: [{ role: "user", content: "Hello!"}], temperature: 0.7 })
   end
 end
