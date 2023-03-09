@@ -1,9 +1,17 @@
-.note {
-  display:flex;
+.card-notes {
+  width: 90%;
+  margin: 0px auto;
+  // border: 1px solid #C49645;
+}
+
+.card-note {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+
   img {
-    width: 30%;
+    width: 100%;
   }
-  border: 1px solid #C49645;
 }
 
 .text{

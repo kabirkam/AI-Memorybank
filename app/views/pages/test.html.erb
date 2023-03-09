@@ -12,6 +12,25 @@
   <div class="recorder-box text-center"></div>
 </div>
 
+<div class="modal fade" id="exampleModalReminder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
   // Html selectors
   const micToggle = document.querySelector("#mic-toggle");
@@ -85,6 +104,7 @@
         } else {
           micIcon.style.color = "black";
           mediaRecorder.stop();
+
         }
       })
 
@@ -101,18 +121,14 @@
               body: JSON.stringify(note)
             })
             .then(response => response.json())
-            .then(sentences => {
-              // const url = sentences[0]["data"][0]["url"];
-              sentences.forEach(sentence => {
-                // console.log(sentence["data"]);
-                elem.insertAdjacentHTML("afterend", "<br>");
-                sentence["data"].forEach(url => {
-                  console.log(url["url"]);
-                  const img = document.createElement("img");
-                  img.src = url["url"];
-                  elem.parentNode.appendChild(img);
-                  })
-                });
+            .then(ai_images => {
+              elem.insertAdjacentHTML("afterend", "<br>");
+              ai_images.forEach(url => {
+                const img = document.createElement("img");
+                img.src = url;
+                elem.parentNode.appendChild(img);
+                })
+              elem.parentNode.appendChild(document.createElement("p"));
               });
         }
     });
