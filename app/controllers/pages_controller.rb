@@ -14,20 +14,24 @@ class PagesController < ApplicationController
 
   def voice_to_text
     client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
+    @note = Note.new
     puts 'building tmp file and getting mp3 data from file'
     tmpfile = Tempfile.new(['tmp', '.mp3'], binmode: true)
     content = params["files"].tempfile.read
     tmpfile.write(content)
     tmpfile.rewind
+    @note.audio.attach(
+      filename: "recording.mp3",
+      io: File.open(tmpfile)
+    )
     puts 'transcribing using Whisper API..'
     response = client.translate(parameters: { model: "whisper-1", file: tmpfile })
+    @note.text = response["text"]
     tmpfile.close
     tmpfile.unlink
     puts 'api done'
 
     # save note
-    @note = Note.new
-    @note.text = response["text"]
     @note.user = current_user
     @note.save
     puts "#{@note.id} transcribed! #{@note.text[0..100]}..."

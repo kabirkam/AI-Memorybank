@@ -142,6 +142,7 @@
 <div class="note-body">
   <div class="nav d-flex profile justify-content-between align-items-center">
     <button class="button-85"><%= link_to "Inbox", notes_path, class: "btn btn-default"  %></button>
+    <button class="button-85"><%= link_to "NewN", new_note_path, class: "btn btn-default"  %></button>
 
     <div class="avatar border-radius">
       <div class="grad border-radius spin"></div>
@@ -151,14 +152,17 @@
       </a>
     </div>
   </div>
+  <h3 class='container mt-5 p-4' style="color: white;"><%= @note.text %></h3>
   <div id="drag-container">
     <div id="spin-container" class="display-image">
       <!-- Add your images (or video) here -->
-      <img
-        src="https://i.pinimg.com/originals/65/fb/52/65fb52abaab05696705401446ca5d3e1.gif"
-        alt=""
-      />
-      <img
+      <% @note.ai_images.each do |image| %>
+        <img <%=  %>
+          src=<%= image.url %>
+          alt="ai_image"
+        />
+      <% end %>
+      <%# <img
         src="https://images.pexels.com/photos/1391498/pexels-photo-1391498.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         alt=""
       />
@@ -177,11 +181,10 @@
       <img
         src="https://images.pexels.com/photos/1462636/pexels-photo-1462636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
         alt=""
-
-      />
+      /> %>
 
       <!-- Example image with link -->
-      <a
+      <%# <a
         target="_blank"
         href="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg"
       >
@@ -189,20 +192,22 @@
           src="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
           alt=""
         />
-      </a>
+      </a> %>
 
       <!-- Example add video  -->
-      <video controls autoplay="autoplay" loop>
+      <%# <video controls autoplay="autoplay" loop>
         <source
           src="https://player.vimeo.com/external/322244668.sd.mp4?s=338c48ac2dfcb1d4c0689968b5baf94eee6ca0c1&profile_id=165&oauth2_token_id=57447761"
           type="video/mp4"
         />
-      </video>
+      </video> %>
 
       <!-- Text at center of ground -->
-      <p>AI Project</p>
+      <%# <p>AI Project</p> %>
     </div>
-    <div id="ground"></div>
+    <div id="ground">
+      <img src="https://4.bp.blogspot.com/-ytDs5i-w15w/UYOloZEdIxI/AAAAAAAAAX0/G6L2BsLnJwc/s1600/Pensieve2.jpg" alt="" style='border-radius: 50%;'>
+    </div>
   </div>
 
 <div id="music-container" style="margin-bottom: 120px;"></div>
@@ -222,8 +227,7 @@
   var imgHeight = 170; // height of images (unit: px)
 
   // Link of background music - set 'null' if you dont want to play background music
-  var bgMusicURL =
-    "https://api.soundcloud.com/tracks/143041228/stream?client_id=587aa2d384f7333a886010d5f52f302a";
+  var bgMusicURL = '<%= @note.audio.url %>';
   var bgMusicControls = true; // Show UI music control
 
 
@@ -294,7 +298,7 @@
     document.getElementById("music-container").innerHTML += `
       <audio src="${bgMusicURL}" ${
                 bgMusicControls ? "controls" : ""
-              } autoplay loop>
+              }>
       <p>If you are reading this, it is because your browser does not support the audio element.</p>
       </audio>
       `;
