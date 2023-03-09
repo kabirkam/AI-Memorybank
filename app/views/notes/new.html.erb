@@ -1,27 +1,14 @@
 
-
-
-<%# new button  %>
-
-
-
-
-
-
-
-
-
-
 <%# this is a img button  %>
 <div class="nav d-flex profile justify-content-between align-items-center">
-  <button class="button-85"><%= link_to "Inbox", notes_path, class: "btn btn-default"  %></button>
+  <button class="button-85"><%= link_to "Inbox", notes_path %></button>
 
-  <div class="avatar border-radius">
-    <div class="grad border-radius spin"></div>
-    <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-      <img src="https://lh3.googleusercontent.com/a/AGNmyxYdZLRF4ONYN4IMCGDLA5-rxxvVnuPRAPAYI3op9Q=s192-c-rg-br100" class="avatar-img border-radius" />
-    </button>
-    </a>
+  <div class="image_outer_container">
+    <div class="image_inner_container">
+      <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <img src="https://avatars.githubusercontent.com/u/56178404?v=4">
+      </button>
+    </div>
   </div>
 </div>
 
@@ -52,9 +39,19 @@
 
       <ul class="menu">
       <li>
-        Avatar
+        Profile
         <ul class="sub-menu">
+          <li>Change name</li>
+          <li>Edit background image</li>
           <li>Edit profile image</li>
+        </ul>
+      </li>
+
+      <li>
+        Settings
+        <ul class="sub-menu">
+          <li>Language</li>
+          <li>Note text type</li>
         </ul>
       </li>
 
@@ -70,6 +67,7 @@
         </ul>
       </li>
     </ul>
+
 
       </div>
     </div>
