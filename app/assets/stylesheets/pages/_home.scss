@@ -1,0 +1,42 @@
+// Specific CSS for your home-page
+.brain {
+margin: auto;
+width: 300px;
+display: block;
+border-radius: 50%;
+}
+
+.memory {
+  text-align: center;
+  font-size: 350%;
+  font-family: 'Barlow Semi Condensed', sans-serif;  font-weight: 100;
+}
+
+.slogan {
+  text-align: center;
+  font-size: 200%;
+  font-family: 'Lekton', sans-serif;
+  font-weight: 100;
+}
+
+// login form
+#home-body {
+  background: #f9f9f9;
+  background: linear-gradient(to right, #ffffff, #853a0b);
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+}
+
+.btn-google {
+  color: white !important;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white !important;
+  background-color: #3b5998;
+}

@@ -1,0 +1,32 @@
+.card-notes {
+  width: 90%;
+  margin: 0px auto;
+  // border: 1px solid #C49645;
+}
+
+.card-note {
+  width: 80%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+
+  img {
+    width: 100%;
+  }
+}
+
+.text{
+  padding: 10px;
+  font-size: medium;
+}
+
+a {
+  color: #C49645;
+  text-decoration: none;
+}
+
+.notes-container{
+
+  margin: 40px 20px 10px;
+  border: 1px solid;
+  padding: 20px;
+}
