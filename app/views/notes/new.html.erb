@@ -21,17 +21,18 @@
   <div class="actor"></div>
 
     <div class="box d-flex">
-      <div class="box-2 d-flex">
-        <button class="button rec-effect-4" id='microphone-button'>
+      <div class="box-2 d-flex" id="mic-container">
+        <button class="button rec-effect-4" id='mic-toggle'>
           <i class="fa fa-microphone"></i>
         </button>
       </div>
     </div>
+    <div class="recorder-box"></div>
 </div>
 
 
 
-<!-- Modal bootstrap -->
+<!-- Modal bootstrap #1 - profile page click -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -74,8 +75,89 @@
   </div>
 </div>
 
-<script type="text/javascript">
-    document.getElementById("microphone-button").onclick = function () {
-        location.href = "/test";
-    };
+
+<!-- Modal bootstrap #2 - voice recording confirmation -->
+<div class="modal fade" id="exampleModalReminder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style='color: white;'>
+        <p>✅ your note was saved!</p>
+        <p>Go on and live your best life</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Html selectors
+  const micToggle = document.querySelector("#mic-toggle");
+  const micIcon = document.querySelector(".fa.fa-microphone");
+  const micContainer = document.querySelector("#mic-conta iner");
+
+  // function to imagify the text in note.text
+  function imagify(note)
+    {
+        // Make fetch request to Rails.
+        const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+        fetch("/imagify", {
+          method: "POST",
+          headers: {"X-CSRF-Token": crsfToken, 'Content-Type': 'application/json'},
+          body: JSON.stringify(note)
+        });
+    }
+
+  // Records audio data into const
+  const audioChunks = [];
+  // Ask user for access to their microphone.
+  navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(stream => {
+    let mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.addEventListener("dataavailable", (event) => {
+        // record audio data into array
+        audioChunks.push(event.data);
+      });
+      mediaRecorder.addEventListener("stop", () => {
+        // Convert audioChunks into audioBlob.
+        const audioBlob = new Blob(audioChunks, { type: 'audio/mpeg' })
+        audioChunks.length = 0;
+
+        // append the audioBlob to formData.
+        const formData = new FormData();
+        formData.append("files", audioBlob);
+
+        // Make fetch request to Rails in order to transcribe.
+        const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+        fetch("/transcript", {
+          method: "POST",
+          headers: {"X-CSRF-Token": crsfToken},
+          body: formData
+        })
+        .then(response => response.json())
+        .then(note => {
+          imagify(note)
+          });
+      });
+
+      // EventListener to toggle recorder
+       micToggle.addEventListener("click", ()=> {
+          if (mediaRecorder.state == "inactive") {
+            mediaRecorder.start()
+            micIcon.style.color = "red";
+            micToggle.setAttribute("data-bs-toggle", "modal");
+            micToggle.setAttribute("data-bs-target", "#exampleModalReminder");
+          } else {
+            micIcon.style.color = "white";
+            micToggle.removeAttribute("data-bs-toggle");
+            micToggle.removeAttribute("data-bs-target");
+            mediaRecorder.stop();
+          }
+        })
+    });
 </script>
