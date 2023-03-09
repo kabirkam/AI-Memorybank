@@ -4,7 +4,7 @@ class NotesController < ApplicationController
   end
 
   def show
-    @notes = Note.find(params[:id])
+    @note = Note.find(params[:id])
   end
 
   # def destroy
