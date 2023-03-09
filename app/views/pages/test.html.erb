@@ -105,6 +105,8 @@
             micToggle.setAttribute("data-bs-target", "#exampleModalReminder");
           } else {
             micIcon.style.color = "black";
+            micToggle.removeAttribute("data-bs-toggle");
+            micToggle.removeAttribute("data-bs-target");
             mediaRecorder.stop();
           }
         })
