@@ -10,115 +10,6 @@
     </div>
   </div>
   <div class="recorder-box text-center"></div>
-
-
-  <script>
-    // Html selectors
-    const micToggle = document.querySelector("#mic-toggle");
-    const micIcon = document.querySelector(".fa.fa-microphone");
-    const audioContainer = document.querySelector(".recorder-box");
-    // Records audio data into const
-    const audioChunks = [];
-    // Ask user for access to their microphone.
-    navigator.mediaDevices.getUserMedia({ audio: true })
-    .then(stream => {
-      let mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.addEventListener("dataavailable", (event) => {
-          // record audio data into array
-          audioChunks.push(event.data);
-        });
-        mediaRecorder.addEventListener("stop", () => {
-          // Convert audioChunks into audioBlob.
-          // { type: 'audio/flac' } This is important. Google-cloud-speech api likes audio '.flac' type.
-          const audioBlob = new Blob(audioChunks, { type: 'audio/mpeg' })
-          audioChunks.length = 0;
-
-          // append the audioBlob to formData.
-          const formData = new FormData();
-          formData.append("files", audioBlob);
-
-          // creating audio element and append the element to audioContainer.
-          const audio  = document.createElement("audio");
-          audio.controls = true;
-          const source  = document.createElement("source");
-          source.src = URL.createObjectURL(audioBlob);
-          audio.appendChild(source);
-          // console.log(audio);
-          const pTag = document.createElement("p")
-          pTag.innerHTML = "-------------*********----------------"
-          audioContainer.appendChild(document.createElement("br"))
-          audioContainer.appendChild(pTag)
-          audioContainer.appendChild(document.createElement("br"))
-          audioContainer.appendChild(audio);
-
-          // Make fetch request to Rails.
-          const crsfToken = document.querySelector("meta[name='csrf-token']").content;
-          // const myKey = process.env.OPENAPI_API_KEY;
-          // console.log(myKey);
-          fetch("/transcript", {
-            method: "POST",
-            headers: {"X-CSRF-Token": crsfToken},
-            body: formData
-          })
-          // .then(response => console.log(response.json()))
-          .then(response => response.json())
-          .then(note => {
-            audioContainer.insertAdjacentHTML("beforeend", `<h2 class="mb-5">${note.text}</h2>`);
-            // audioContainer.insertAdjacentHTML("beforeend", `<button id="${note.id}" onClick="imagify(this.id)">B1</button>`);
-
-            // make an imagify button and set it to trigger the generate_images controller action
-            const imagifyButton = document.createElement("div"); //imagify
-            imagifyButton.classList.add('btn');
-            imagifyButton.classList.add('btn-primary');
-            imagifyButton.innerText = 'Imagify';
-            imagifyButton.controls = true;
-            imagifyButton.addEventListener ("click", (ev) => { imagify(note, ev); }, false);
-            audioContainer.appendChild(imagifyButton);
-            });
-        });
-
-        // EventListener to toggle recorder
-        micToggle.addEventListener("click", ()=> {
-          if (mediaRecorder.state == "inactive") {
-            mediaRecorder.start()
-            micIcon.style.color = "red";
-            micToggle.setAttribute("data-bs-toggle", "modal");
-            micToggle.setAttribute("data-bs-target", "#exampleModalReminder");
-          } else {
-            micIcon.style.color = "black";
-            mediaRecorder.stop();
-          }
-        })
-
-        // EventListener to toggle recorder
-
-        function imagify(note, ev)
-          {
-              const elem = ev.target
-              // Make fetch request to Rails.
-              const crsfToken = document.querySelector("meta[name='csrf-token']").content;
-              fetch("/imagify", {
-                method: "POST",
-                headers: {"X-CSRF-Token": crsfToken, 'Content-Type': 'application/json'},
-                body: JSON.stringify(note)
-              })
-              .then(response => response.json())
-              .then(sentences => {
-                // const url = sentences[0]["data"][0]["url"];
-                sentences.forEach(sentence => {
-                  // console.log(sentence["data"]);
-                  elem.insertAdjacentHTML("afterend", "<br>");
-                  sentence["data"].forEach(url => {
-                    console.log(url["url"]);
-                    const img = document.createElement("img");
-                    img.src = url["url"];
-                    elem.parentNode.appendChild(img);
-                    })
-                  });
-                });
-          }
-      });
-  </script>
 </div>
 
 <div class="modal fade" id="exampleModalReminder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -138,3 +29,107 @@
     </div>
   </div>
 </div>
+
+
+<script>
+  // Html selectors
+  const micToggle = document.querySelector("#mic-toggle");
+  const micIcon = document.querySelector(".fa.fa-microphone");
+  const audioContainer = document.querySelector(".recorder-box");
+  // Records audio data into const
+  const audioChunks = [];
+  // Ask user for access to their microphone.
+  navigator.mediaDevices.getUserMedia({ audio: true })
+  .then(stream => {
+    let mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.addEventListener("dataavailable", (event) => {
+        // record audio data into array
+        audioChunks.push(event.data);
+      });
+      mediaRecorder.addEventListener("stop", () => {
+        // Convert audioChunks into audioBlob.
+        // { type: 'audio/flac' } This is important. Google-cloud-speech api likes audio '.flac' type.
+        const audioBlob = new Blob(audioChunks, { type: 'audio/mpeg' })
+        audioChunks.length = 0;
+
+        // append the audioBlob to formData.
+        const formData = new FormData();
+        formData.append("files", audioBlob);
+
+        // creating audio element and append the element to audioContainer.
+        const audio  = document.createElement("audio");
+        audio.controls = true;
+        const source  = document.createElement("source");
+        source.src = URL.createObjectURL(audioBlob);
+        audio.appendChild(source);
+        // console.log(audio);
+        const pTag = document.createElement("p")
+        pTag.innerHTML = "-------------*********----------------"
+        audioContainer.appendChild(document.createElement("br"))
+        audioContainer.appendChild(pTag)
+        audioContainer.appendChild(document.createElement("br"))
+        audioContainer.appendChild(audio);
+
+        // Make fetch request to Rails.
+        const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+        // const myKey = process.env.OPENAPI_API_KEY;
+        // console.log(myKey);
+        fetch("/transcript", {
+          method: "POST",
+          headers: {"X-CSRF-Token": crsfToken},
+          body: formData
+        })
+        // .then(response => console.log(response.json()))
+        .then(response => response.json())
+        .then(note => {
+          audioContainer.insertAdjacentHTML("beforeend", `<h2 class="mb-5">${note.text}</h2>`);
+          // audioContainer.insertAdjacentHTML("beforeend", `<button id="${note.id}" onClick="imagify(this.id)">B1</button>`);
+
+          // make an imagify button and set it to trigger the generate_images controller action
+          const imagifyButton = document.createElement("div"); //imagify
+          imagifyButton.classList.add('btn');
+          imagifyButton.classList.add('btn-primary');
+          imagifyButton.innerText = 'Imagify';
+          imagifyButton.controls = true;
+          imagifyButton.addEventListener ("click", (ev) => { imagify(note, ev); }, false);
+          audioContainer.appendChild(imagifyButton);
+          });
+      });
+
+      // EventListener to toggle recorder
+      micToggle.addEventListener("click", ()=> {
+        if (mediaRecorder.state == "inactive") {
+          mediaRecorder.start()
+          micIcon.style.color = "red";
+        } else {
+          micIcon.style.color = "black";
+          mediaRecorder.stop();
+
+        }
+      })
+
+      // EventListener to toggle recorder
+
+      function imagify(note, ev)
+        {
+            const elem = ev.target
+            // Make fetch request to Rails.
+            const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+            fetch("/imagify", {
+              method: "POST",
+              headers: {"X-CSRF-Token": crsfToken, 'Content-Type': 'application/json'},
+              body: JSON.stringify(note)
+            })
+            .then(response => response.json())
+            .then(ai_images => {
+              elem.insertAdjacentHTML("afterend", "<br>");
+              ai_images.forEach(url => {
+                const img = document.createElement("img");
+                img.src = url;
+                elem.parentNode.appendChild(img);
+                })
+              elem.parentNode.appendChild(document.createElement("p"));
+              });
+        }
+    });
+</script>

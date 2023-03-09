@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: :home
 
@@ -35,15 +37,24 @@ class PagesController < ApplicationController
   end
 
   def generate_imgs
-    note = Note.find(params[:id])
-    payload = note.text.split('.')
+    @note = Note.find(params[:id])
+    payload = @note.text.split('.')
     client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
     image_urls = []
+    @note.ai_images.purge_later # Delete images from cloudinary and activerecord
     payload.each do |sentence|
-      image_urls.push(client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 1 }))
+      response = client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 1 })
+      remote_url = response["data"][0]["url"]
+      @note.ai_images.attach(
+        filename: "item.jpg",
+        io: URI.parse(remote_url).open
+      )
+      image_urls.push(remote_url)
     end
+    @note.save
+
     respond_to do |format|
-      format.json { render json: image_urls }
+      format.json { render json: @note.ai_images.map { |i| i.url } }
     end
   end
 
