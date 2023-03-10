@@ -141,8 +141,8 @@
 
 <div class="note-body">
   <div class="nav d-flex profile justify-content-between align-items-center">
-    <button class="button-85"><%= link_to "Inbox", notes_path, class: "btn btn-default"  %></button>
-    <button class="button-85"><%= link_to "NewN", new_note_path, class: "btn btn-default"  %></button>
+    <button class="button-85"><%= link_to "Inbox", notes_path%></button>
+    <button class="button-85"><%= link_to "+Note", new_note_path%></button>
 
     <div class="avatar border-radius">
       <div class="grad border-radius spin"></div>
@@ -152,7 +152,7 @@
       </a>
     </div>
   </div>
-  <h3 class='container mt-5 p-4' style="color: white;"><%= @note.text %></h3>
+  <h3 class='container mt-5 p-4' style="color: white;"><%= @note.text[0..100] %></h3>
   <div id="drag-container">
     <div id="spin-container" class="display-image">
       <!-- Add your images (or video) here -->
