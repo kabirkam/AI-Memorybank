@@ -140,7 +140,7 @@
 </head>
 
 <div class="note-body">
-  <div class="nav d-flex profile justify-content-between align-items-center">
+  <div class="nav d-flex profile justify-content-between align-items-center mb-3">
     <button class="button-85"><%= link_to "Inbox", notes_path, class: "btn btn-default"  %></button>
     <button class="button-85"><%= link_to "NewN", new_note_path, class: "btn btn-default"  %></button>
 
@@ -152,7 +152,46 @@
       </a>
     </div>
   </div>
-  <h3 class='container mt-5 p-4' style="color: white;"><%= @note.text %></h3>
+
+  <%# modal for the show page with the pop up text %>
+  <!-- Button trigger modal -->
+  <div class="show-container" data-controller="pop-up-msg">
+    <h3 class='container' data-action="click->pop-up-msg#showMsg" style="color: white; cursor:pointer;"><%= @note.text.truncate(100) %></h3>
+
+    <div class="pop-up-msg-box-container">
+      <div class="pop-up-msg-box">
+        <div class="pop-up-msg-box-top mb-2">
+          <p class="fav-btn">Add Favorite</p>
+          <p class="close-btn" data-action="click->pop-up-msg#closeMsg">Close</p>
+        </div>
+        <%= @note.text %>
+      </div>
+    </div>
+
+  </div>
+
+  <%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch a button
+  </button> %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <p><%= @note.text %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <div id="drag-container">
     <div id="spin-container" class="display-image">
       <!-- Add your images (or video) here -->
@@ -210,7 +249,7 @@
     </div>
   </div>
 
-<div id="music-container" style="margin-bottom: 120px;"></div>
+<div id="music-container" style="margin-bottom: 50px;"></div>
 </div>
 </div>
 
@@ -351,7 +390,7 @@
   };
 </script>
 
-
+  <%# <div class="show-page-fade"></div> %>
 
 <!-- Modal bootstrap -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
