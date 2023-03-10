@@ -8,21 +8,25 @@
   width: 80%;
   margin: 0 auto;
   margin-bottom: 30px;
+  border-radius: 10px ;
+  box-shadow: 0 1px 2px $gray;
 
   img {
     width: 100%;
+    border-radius: 10px 10px 0 0;
   }
 }
 
 .text{
   padding: 10px;
   font-size: medium;
+  color: $gray;
 }
 
-a {
-  color: #C49645;
-  text-decoration: none;
-}
+// a {
+//   color: $orange;
+//   text-decoration: none;
+// }
 
 .notes-container{
 

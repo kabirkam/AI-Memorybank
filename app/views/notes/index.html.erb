@@ -1,15 +1,19 @@
-<p>Inbox<p>
+<body class="container">
+  <div>
+    <h1>Inbox</h1>
+    <div class="card-notes">
+      <% @notes.each do |note|%>
+        <%= link_to note_path(note) do %>
+        <div class="card-note">
 
-<div class="card-notes">
-  <% @notes.each do |note|%>
-    <%= link_to note_path(note) do %>
-    <div class="card-note">
-      <img src="https://images.unsplash.com/photo-1672745256937-4e60a4534413?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1088&q=80" >
-      <div class="text">
-        <%#= link_to note.text.truncate_words(10), note_path(note) %>
-        <%= note.text.truncate_words(10) %>
-      </div>
+          <img src=<%= note.ai_images[0] ? note.ai_images[0].url : "https://res.cloudinary.com/teepublic/image/private/s--c4AzvgDC--/t_Preview/t_watermark_lock/b_rgb:191919,c_lpad,f_jpg,h_630,q_90,w_1200/v1598801323/production/designs/13546919_0.jpg" %>  width="256" height="256">
+          <div class="text">
+            <%#= link_to note.text.truncate_words(10), note_path(note) %>
+            <%= note.text.truncate_words(10) %>
+          </div>
+        </div>
+        <% end %>
+      <% end %>
     </div>
-    <% end %>
-  <% end %>
-</div>
+  </div>
+</body>
