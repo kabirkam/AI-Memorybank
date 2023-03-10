@@ -7,9 +7,8 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id])
   end
 
-  # def destroy
-  #   #check this with Aamir
-  # end
+  def new
+  end
 
   def create
     @note = Note.new
@@ -23,9 +22,11 @@ class NotesController < ApplicationController
       io: File.open(tmpfile)
     )
     if @note.save
+      puts "not pinging voice to text API"
       voice_to_text(@note, tmpfile)
     else
       flash[:alert] = "Note couldnt be saved, please try again"
+      puts "couldnt save the note in create"
       redirect_to new_note_path
     end
   end
@@ -38,16 +39,24 @@ class NotesController < ApplicationController
     tmpfile.close
     tmpfile.unlink
     note.text = response["text"]
-    note.save
     puts "#{note.id} transcribed! #{note.text[0..100]}..."
 
-    respond_to do |format|
-      format.json { render json: note }
+    if @note.save
+      puts "not pinging image generation API"
+      generate_imgs(@note)
+    else
+      flash[:alert] = "Note couldnt be saved after voice generation, please try again"
+      puts "couldnt save note in voice_to_text notes controller"
+      # redirect_to new_note_path
     end
+
+    # respond_to do |format|
+    #   format.json { render json: note }
+    # end
   end
 
-  def generate_imgs
-    @note = Note.find(params[:id])
+  def generate_imgs(note)
+    @note = note || Note.find(params[:id])
     payload = @note.text.split(/[,.]/)
     client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
     image_urls = []
@@ -61,16 +70,21 @@ class NotesController < ApplicationController
       )
       image_urls.push(remote_url)
     end
-    @note.save
+    if @note.save
+      puts "note was saved after image generation"
+    else
+      flash[:alert] = "Note couldnt be saved after image generation, please try again"
+      # redirect_to new_note_path
+    end
 
     respond_to do |format|
-      format.json { render json: @note.ai_images.map { |i| i.url } }
+      format.json { render json: @note.ai_images.map(&:url) }
     end
   end
 
   def chatgpt
     client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
-    @note = @note || Note.new
+    @note ||= Note.new
     puts 'Expanding descriptions using ChatGPT API..'
     prefix = 'describe in a highly detailed way and in less than 15 words an image with the idea,'
     content = "Remember to call back Mum"
