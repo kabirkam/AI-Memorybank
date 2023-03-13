@@ -34,6 +34,10 @@ class NotesController < ApplicationController
     end
   end
 
+  def destroy
+    @note = Note.find(params[:id])
+  end
+
   def open_tmpfile_mp3(tmpfile)
     mp3file = Tempfile.new(['tmp', '.mp3'], binmode: true)
     content = tmpfile.read
@@ -70,8 +74,8 @@ class NotesController < ApplicationController
     @note.sentences.each do |sentence|
       next if sentence.like
 
-      response = client.images.generate(parameters: { prompt: sentence.text, size: "256x256", n: 1 })
       sentence.ai_image.purge_later # Delete images from cloudinary and activerecord
+      response = client.images.generate(parameters: { prompt: sentence.text, size: "256x256", n: 1 })
       sentence.ai_image.attach(filename: "item.jpg", io: URI.parse(response["data"][0]["url"]).open)
     end
     @note.save
