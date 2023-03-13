@@ -9,7 +9,8 @@
   margin: 0 auto;
   margin-bottom: 30px;
   border-radius: 10px ;
-  box-shadow: 0 1px 2px $gray;
+  box-shadow: 0 1px 2px white;
+  background-color: white;
 
   img {
     width: 100%;
@@ -23,10 +24,11 @@
   color: $gray;
 }
 
-// a {
-//   color: $orange;
-//   text-decoration: none;
-// }
+a {
+  color: $orange;
+  text-decoration: none;
+  font-style: $headers-font;
+}
 
 .notes-container{
 
