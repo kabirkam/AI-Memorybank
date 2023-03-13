@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
+
+import PopUpMsgController from "./pop_up_msg_controller"
+application.register("pop-up-msg", PopUpMsgController)

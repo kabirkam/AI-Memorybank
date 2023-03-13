@@ -152,11 +152,32 @@
       </a>
     </div>
   </div>
-  <h3 class='container mt-5 p-4' style="color: white;"><%= @note.text[0..100] %></h3>
+
+  <%# modal for the show page with the pop up text %>
+  <!-- Button trigger modal -->
+  <div class="show-container" data-controller="pop-up-msg">
+    <h3 class='container' data-action="click->pop-up-msg#showMsg" style="color: white; cursor:pointer;"><%= @note.text.truncate(100) %></h3>
+
+    <div class="pop-up-msg-box-container">
+      <div class="pop-up-msg-box">
+        <div class="pop-up-msg-box-top mb-2">
+          <p class="fav-btn" style="cursor:pointer;" data-action="click->pop-up-msg#addFav">Add Favorite</p>
+          <p class="close-btn" style="cursor:pointer;" data-action="click->pop-up-msg#closeMsg">Close</p>
+        </div>
+        <%= @note.text %>
+      </div>
+    </div>
+
+  </div>
+
+  <%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  Launch a button
+  </button> %>
+
   <div id="drag-container">
     <div id="spin-container" class="display-image">
       <!-- Add your images (or video) here -->
-      <% @note.ai_images.each do |image| %> 
+      <% @note.ai_images.each do |image| %>
         <img <%=  %>
           src=<%= image.url %>
           alt="ai_image"
@@ -171,7 +192,7 @@
     </div>
   </div>
 
-<div id="music-container" style="margin-bottom: 120px;"></div>
+<div id="music-container" style="margin-bottom: 50px;"></div>
 </div>
 </div>
 
@@ -312,7 +333,7 @@
   };
 </script>
 
-
+  <%# <div class="show-page-fade"></div> %>
 
 <!-- Modal bootstrap -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
