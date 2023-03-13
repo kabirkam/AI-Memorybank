@@ -83,3 +83,6 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+#adding a timer on the mic button
+
