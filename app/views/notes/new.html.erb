@@ -23,6 +23,8 @@
     <div class="box d-flex">
       <div class="box-2 d-flex" id="mic-container">
         <button class="button rec-effect-4" id='mic-toggle'>
+          <%# text display for the mic button %>
+          <div class="mic-text">Tap to start</div>
           <i class="fa fa-microphone"></i>
         </button>
       </div>
@@ -95,25 +97,24 @@
   </div>
 </div>
 
-<%# text display for the mic button %>
-
-<div class="mic-text">⇧<br>Tap to start recording</div>
-
  <%# timer for the record button %>
 <div class="timer" data-controller="timer" >
   <div class="inner-timer"></div>
 </div>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
+  // import CircleType from'circletype';
   // Html selectors
   const micToggle = document.querySelector("#mic-toggle");
   const micIcon = document.querySelector(".fa.fa-microphone");
   const micContainer = document.querySelector("#mic-container");
   let micText = document.querySelector(".mic-text");
+  const circleType = new CircleType(micText);
+  circleType.radius(87).dir(1);
   let time = document.getElementsByClassName("inner-timer")
-  // console.log(time[0].innerHTML)
 
   let timings = 60;
   let i = 1;
@@ -196,13 +197,19 @@
             i=0; s=0; m=0;
             myInterval = setInterval(Timeup, 10);
             console.log(micText)
-            micText.innerHTML = '⇧<br>Tap to stop recording'
+            micText.innerHTML = 'Tap to stop'
+            micText.style.color = "red";
+            const circleType = new CircleType(micText);
+            circleType.radius(87).dir(1);
             micToggle.setAttribute("data-bs-toggle", "modal");
             micToggle.setAttribute("data-bs-target", "#exampleModalReminder");
           } else {
             micIcon.style.color = "white";
             clearInterval(myInterval)
-            micText.innerHTML = '⇧<br>Tap to start recording'
+            micText.innerHTML = 'Tap to start'
+            micText.style.color = "white";
+            const circleType = new CircleType(micText);
+            circleType.radius(87).dir(1);
             micToggle.removeAttribute("data-bs-toggle");
             micToggle.removeAttribute("data-bs-target");
             mediaRecorder.stop();

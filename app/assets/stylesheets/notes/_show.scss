@@ -61,13 +61,12 @@
 }
 
 .mic-text{
-  position: absolute;
-  margin: auto;
-  top: 80%; //82% was when it was at bottom
-  right: 0;
-  left: 0;
-  width: 210px;
+  position: relative;
+  bottom: 10%;
+  margin-top: 8px;
+  width: auto;
   text-align: center;
-  font-size:30px;
+  font-size:25px;
   font-weight: bolder;
+  color: white;
 }

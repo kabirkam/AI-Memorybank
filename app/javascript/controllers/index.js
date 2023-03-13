@@ -9,6 +9,3 @@ application.register("hello", HelloController)
 
 import PopUpMsgController from "./pop_up_msg_controller"
 application.register("pop-up-msg", PopUpMsgController)
-
-import TimerController from "./timer_controller"
-application.register("timer", TimerController)

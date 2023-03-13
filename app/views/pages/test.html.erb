@@ -62,7 +62,6 @@
         const source  = document.createElement("source");
         source.src = URL.createObjectURL(audioBlob);
         audio.appendChild(source);
-        // console.log(audio);
         const pTag = document.createElement("p")
         pTag.innerHTML = "-------------*********----------------"
         audioContainer.appendChild(document.createElement("br"))
@@ -72,14 +71,11 @@
 
         // Make fetch request to Rails.
         const crsfToken = document.querySelector("meta[name='csrf-token']").content;
-        // const myKey = process.env.OPENAPI_API_KEY;
-        // console.log(myKey);
         fetch("/transcript", {
           method: "POST",
           headers: {"X-CSRF-Token": crsfToken},
           body: formData
         })
-        // .then(response => console.log(response.json()))
         .then(response => response.json())
         .then(note => {
           audioContainer.insertAdjacentHTML("beforeend", `<h2 class="mb-5">${note.text}</h2>`);
@@ -127,7 +123,6 @@
             .then(ai_images => {
               elem.insertAdjacentHTML("afterend", "<br>");
               ai_images.forEach(url => {
-                console.log(url);
                 const img = document.createElement("img");
                 img.src = url;
                 elem.parentNode.appendChild(img);
