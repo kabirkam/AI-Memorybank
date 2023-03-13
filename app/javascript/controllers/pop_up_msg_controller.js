@@ -13,9 +13,7 @@ export default class extends Controller {
     msgBox.classList.add("active")
 
     const showPage = document.querySelector(".note-body")
-    showPage.classList.add("")
-
-
+    // showPage.classList.add("")
   }
 
   closeMsg() {
@@ -24,7 +22,7 @@ export default class extends Controller {
     const msgBox = document.querySelector(".pop-up-msg-box-container")
     msgBox.classList.remove("active")
 
-    const msgBox = document.querySelector(".pop-up-msg-box-container")
+    const showPage = document.querySelector(".note-body")
 
   }
 }

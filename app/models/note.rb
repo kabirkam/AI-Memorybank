@@ -4,4 +4,6 @@ class Note < ApplicationRecord
   has_many :reminders
   has_one_attached :audio
   has_many_attached :ai_images
+
+  validates :text, :audio, presence: true
 end

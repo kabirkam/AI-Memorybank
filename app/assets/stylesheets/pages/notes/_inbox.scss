@@ -1,0 +1,28 @@
+.inbox-page-1 {
+  background-color: $gray;
+  color: white;
+}
+
+.inbox-page {
+  position: relative;
+}
+
+.inbox-page:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+  // background-image: url('https://assets.digitalocean.com/labs/images/community_bg.png');
+  background-image: url("https://wallpaperaccess.com/full/228622.jpg");
+  background-repeat: no-repeat;
+  background-position: 50% 0;
+  background-size: cover;
+}
+
+.inbox-content {
+  position: relative;
+}

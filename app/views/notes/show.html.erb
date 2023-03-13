@@ -140,9 +140,9 @@
 </head>
 
 <div class="note-body">
-  <div class="nav d-flex profile justify-content-between align-items-center mb-3">
-    <button class="button-85"><%= link_to "Inbox", notes_path, class: "btn btn-default"  %></button>
-    <button class="button-85"><%= link_to "NewN", new_note_path, class: "btn btn-default"  %></button>
+  <div class="nav d-flex profile justify-content-between align-items-center">
+    <button class="button-85"><%= link_to "Inbox", notes_path%></button>
+    <button class="button-85"><%= link_to "+Note", new_note_path%></button>
 
     <div class="avatar border-radius">
       <div class="grad border-radius spin"></div>
@@ -161,8 +161,8 @@
     <div class="pop-up-msg-box-container">
       <div class="pop-up-msg-box">
         <div class="pop-up-msg-box-top mb-2">
-          <p class="fav-btn">Add Favorite</p>
-          <p class="close-btn" data-action="click->pop-up-msg#closeMsg">Close</p>
+          <p class="fav-btn" style="cursor:pointer;" data-action="click->pop-up-msg#addFav">Add Favorite</p>
+          <p class="close-btn" style="cursor:pointer;" data-action="click->pop-up-msg#closeMsg">Close</p>
         </div>
         <%= @note.text %>
       </div>
@@ -174,24 +174,6 @@
   Launch a button
   </button> %>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"></h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <p><%= @note.text %></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
   <div id="drag-container">
     <div id="spin-container" class="display-image">
       <!-- Add your images (or video) here -->
@@ -201,51 +183,12 @@
           alt="ai_image"
         />
       <% end %>
-      <%# <img
-        src="https://images.pexels.com/photos/1391498/pexels-photo-1391498.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt=""
-      />
-      <img
-        src="https://images.pexels.com/photos/1382731/pexels-photo-1382731.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt=""
-      />
-      <img
-        src="https://images.pexels.com/photos/1758144/pexels-photo-1758144.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt=""
-      />
-      <img
-        src="https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt=""
-      />
-      <img
-        src="https://images.pexels.com/photos/1462636/pexels-photo-1462636.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-        alt=""
-      /> %>
-
-      <!-- Example image with link -->
-      <%# <a
-        target="_blank"
-        href="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg"
-      >
-        <img
-          src="https://images.pexels.com/photos/139829/pexels-photo-139829.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
-          alt=""
-        />
-      </a> %>
-
-      <!-- Example add video  -->
-      <%# <video controls autoplay="autoplay" loop>
-        <source
-          src="https://player.vimeo.com/external/322244668.sd.mp4?s=338c48ac2dfcb1d4c0689968b5baf94eee6ca0c1&profile_id=165&oauth2_token_id=57447761"
-          type="video/mp4"
-        />
-      </video> %>
 
       <!-- Text at center of ground -->
       <%# <p>AI Project</p> %>
     </div>
     <div id="ground">
-      <img src="https://4.bp.blogspot.com/-ytDs5i-w15w/UYOloZEdIxI/AAAAAAAAAX0/G6L2BsLnJwc/s1600/Pensieve2.jpg" alt="" style='border-radius: 50%;'>
+      <%# <img src="https://4.bp.blogspot.com/-ytDs5i-w15w/UYOloZEdIxI/AAAAAAAAAX0/G6L2BsLnJwc/s1600/Pensieve2.jpg" alt="" style='border-radius: 50%;'> %>
     </div>
   </div>
 
@@ -259,11 +202,11 @@
   // Github verson (1 file .html): https://github.com/HoangTran0410/3DCarousel/blob/master/index.html
 
   // You can change global variables here:
-  var radius = 240; // how big of the radius
+  var radius = 150; // how big of the radius
   var autoRotate = true; // auto rotate or not
   var rotateSpeed = -60; // unit: seconds/360 degrees
-  var imgWidth = 120; // width of images (unit: px)
-  var imgHeight = 170; // height of images (unit: px)
+  var imgWidth = 153; // width of images (unit: px)
+  var imgHeight = 153; // height of images (unit: px)
 
   // Link of background music - set 'null' if you dont want to play background music
   var bgMusicURL = '<%= @note.audio.url %>';

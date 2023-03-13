@@ -8,8 +8,8 @@ Reminder.destroy_all
 User.destroy_all
 
 puts 'creating fake users'
-user1 = User.create(email: 'test1@test.com', password: 'testing')
-user2 = User.create(email: 'test2@test.com', password: 'testing')
+user1 = User.create!(email: 'test1@test.com', password: 'testing')
+user2 = User.create!(email: 'test2@test.com', password: 'testing')
 
 puts 'creating fake category'
 # category1 = Category.create!(name: "Work")
@@ -44,6 +44,6 @@ note1.ai_images.attach(
   filename: "car2.jpg",
   io: URI.open('https://www.topgear.com/sites/default/files/news-listicle/image/2023/03/audirsq8.jpg?w=256&h=256')
 )
-note1.save
+note1.save!
 
 puts 'finished'
