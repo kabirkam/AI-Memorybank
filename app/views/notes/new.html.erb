@@ -108,12 +108,10 @@
 <script>
   // import CircleType from'circletype';
   // Html selectors
-  const micToggle = document.querySelector("#mic-toggle");
   const micIcon = document.querySelector(".fa.fa-microphone");
+  const micToggle = document.querySelector("#mic-toggle");
   const micContainer = document.querySelector("#mic-container");
   let micText = document.querySelector(".mic-text");
-  const circleType = new CircleType(micText);
-  circleType.radius(87).dir(1);
   let time = document.getElementsByClassName("inner-timer")
 
   let timings = 60;
@@ -189,6 +187,13 @@
         }
       }
 
+      function circlefy() {
+        const circleType = new CircleType(micText);
+        circleType.radius(87).dir(1);
+      }
+
+      circlefy(micText)
+
       // EventListener to toggle recorder
        micToggle.addEventListener("click", ()=> {
           if (mediaRecorder.state == "inactive") {
@@ -199,8 +204,7 @@
             console.log(micText)
             micText.innerHTML = 'Tap to stop'
             micText.style.color = "red";
-            const circleType = new CircleType(micText);
-            circleType.radius(87).dir(1);
+            window.onload = circlefy(micText)
             micToggle.setAttribute("data-bs-toggle", "modal");
             micToggle.setAttribute("data-bs-target", "#exampleModalReminder");
           } else {
@@ -208,8 +212,7 @@
             clearInterval(myInterval)
             micText.innerHTML = 'Tap to start'
             micText.style.color = "white";
-            const circleType = new CircleType(micText);
-            circleType.radius(87).dir(1);
+            window.onload = circlefy(micText)
             micToggle.removeAttribute("data-bs-toggle");
             micToggle.removeAttribute("data-bs-target");
             mediaRecorder.stop();
