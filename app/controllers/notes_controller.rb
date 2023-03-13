@@ -1,84 +1,83 @@
+require 'open-uri'
+
 class NotesController < ApplicationController
   def index
     @notes = Note.all.order(created_at: :desc)
+    @loading_pic = "https://res.cloudinary.com/teepublic/image/private/s--c4AzvgDC--/t_Preview/t_watermark_lock/b_rgb:191919,c_lpad,f_jpg,h_630,q_90,w_1200/v1598801323/production/designs/13546919_0.jpg"
   end
 
   def show
     @note = Note.find(params[:id])
+    @loading_pic = "https://res.cloudinary.com/teepublic/image/private/s--c4AzvgDC--/t_Preview/t_watermark_lock/b_rgb:191919,c_lpad,f_jpg,h_630,q_90,w_1200/v1598801323/production/designs/13546919_0.jpg"
+  end
+
+  def test
+    @loading_pic = "https://res.cloudinary.com/teepublic/image/private/s--c4AzvgDC--/t_Preview/t_watermark_lock/b_rgb:191919,c_lpad,f_jpg,h_630,q_90,w_1200/v1598801323/production/designs/13546919_0.jpg"
   end
 
   def new
   end
 
-  def create
+  def create(mp3file, note_text)
     @note = Note.new
+    @note.audio.attach(filename: "recording.mp3", io: File.open(mp3file))
+    close_tmpfile_mp3(mp3file)
+
+    # save note
     @note.user = current_user
-    tmpfile = Tempfile.new(['tmp', '.mp3'], binmode: true)
-    content = params["files"].tempfile.read
-    tmpfile.write(content)
-    tmpfile.rewind
-    @note.audio.attach(
-      filename: "recording.mp3",
-      io: File.open(tmpfile)
-    )
-    if @note.save
-      puts "not pinging voice to text API"
-      voice_to_text(@note, tmpfile)
-    else
-      flash[:alert] = "Note couldnt be saved, please try again"
-      puts "couldnt save the note in create"
-      redirect_to new_note_path
-    end
-  end
-
-  def voice_to_text(note, tmpfile)
-    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
-    puts 'transcribing using Whisper API..'
-    response = client.translate(parameters: { model: "whisper-1", file: tmpfile })
-    puts 'whisper api done'
-    tmpfile.close
-    tmpfile.unlink
-    note.text = response["text"]
-    puts "#{note.id} transcribed! #{note.text[0..100]}..."
-
-    if @note.save
-      puts "not pinging image generation API"
-      generate_imgs(@note)
-    else
-      flash[:alert] = "Note couldnt be saved after voice generation, please try again"
-      puts "couldnt save note in voice_to_text notes controller"
-      # redirect_to new_note_path
-    end
-
-    # respond_to do |format|
-    #   format.json { render json: note }
-    # end
-  end
-
-  def generate_imgs(note)
-    @note = note || Note.find(params[:id])
-    payload = @note.text.split(/[,.]/)
-    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
-    image_urls = []
-    @note.ai_images.purge_later # Delete images from cloudinary and activerecord
-    payload.each do |sentence|
-      response = client.images.generate(parameters: { prompt: sentence, size: "256x256", n: 1 })
-      remote_url = response["data"][0]["url"]
-      @note.ai_images.attach(
-        filename: "item.jpg",
-        io: URI.parse(remote_url).open
-      )
-      image_urls.push(remote_url)
-    end
-    if @note.save
-      puts "note was saved after image generation"
-    else
-      flash[:alert] = "Note couldnt be saved after image generation, please try again"
-      # redirect_to new_note_path
-    end
+    @note.text = note_text
+    @note.save
+    puts "#{@note.id} transcribed! #{@note.text[0..100]}..."
 
     respond_to do |format|
-      format.json { render json: @note.ai_images.map(&:url) }
+      format.json { render json: @note }
+    end
+  end
+
+  def open_tmpfile_mp3(tmpfile)
+    mp3file = Tempfile.new(['tmp', '.mp3'], binmode: true)
+    content = tmpfile.read
+    mp3file.write(content)
+    mp3file.rewind
+    return mp3file
+  end
+
+  def close_tmpfile_mp3(mp3file)
+    mp3file.close
+    mp3file.unlink
+  end
+
+  def voice_to_text
+    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
+    puts 'transcribing using Whisper API..'
+    mp3file = open_tmpfile_mp3(params["files"].tempfile)
+    response = client.translate(parameters: { model: "whisper-1", file: mp3file })
+    puts 'api done'
+    note_text = response["text"]
+    create(mp3file, note_text)
+  end
+
+  def make_sentences(note)
+    note.sentences.push(note.text.split(/[,.]/).map { |sent| Sentence.new(text: sent) })
+    return note
+  end
+
+  def generate_imgs
+    @note = Note.find(params[:id])
+    @note = make_sentences(@note)
+    client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
+    # @note.sentences.map { |sent| sent.ai_image.purge_later } # Delete images from cloudinary and activerecord
+    @note.sentences.each do |sentence|
+      next if sentence.like
+
+      response = client.images.generate(parameters: { prompt: sentence.text, size: "256x256", n: 1 })
+      sentence.ai_image.purge_later # Delete images from cloudinary and activerecord
+      sentence.ai_image.attach(filename: "item.jpg", io: URI.parse(response["data"][0]["url"]).open)
+    end
+    @note.save
+
+    respond_to do |format|
+      format.json { render json: @note.sentences.map { |sent| sent.ai_image.url || @loading_pic } }
     end
   end
 

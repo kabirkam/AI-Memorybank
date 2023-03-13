@@ -177,9 +177,9 @@
   <div id="drag-container">
     <div id="spin-container" class="display-image">
       <!-- Add your images (or video) here -->
-      <% @note.ai_images.each do |image| %>
-        <img <%=  %>
-          src=<%= image.url %>
+      <% @note.sentences.each do |sentence| %>
+        <img class=""
+          src=<%= sentence.ai_image.url || @loading_pic %>
           alt="ai_image"
         />
       <% end %>
@@ -204,7 +204,7 @@
   // You can change global variables here:
   var radius = 150; // how big of the radius
   var autoRotate = true; // auto rotate or not
-  var rotateSpeed = -60; // unit: seconds/360 degrees
+  var rotateSpeed = -45; // unit: seconds/360 degrees
   var imgWidth = 153; // width of images (unit: px)
   var imgHeight = 153; // height of images (unit: px)
 

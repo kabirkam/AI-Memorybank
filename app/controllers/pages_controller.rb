@@ -42,7 +42,7 @@ class PagesController < ApplicationController
 
   def generate_imgs
     @note = Note.find(params[:id])
-    payload = @note.text.split('.')
+    payload = @note.text.split(/[,.]/)
     client = OpenAI::Client.new(access_token: ENV.fetch('OPENAI_API_KEY'))
     image_urls = []
     @note.ai_images.purge_later # Delete images from cloudinary and activerecord

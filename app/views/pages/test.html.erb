@@ -127,6 +127,7 @@
             .then(ai_images => {
               elem.insertAdjacentHTML("afterend", "<br>");
               ai_images.forEach(url => {
+                console.log(url);
                 const img = document.createElement("img");
                 img.src = url;
                 elem.parentNode.appendChild(img);
