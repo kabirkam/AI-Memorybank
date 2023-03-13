@@ -62,7 +62,7 @@ class NotesController < ApplicationController
   end
 
   def make_sentences(note)
-    note.sentences.push(note.text.split(/[,.]/).map { |sent| Sentence.new(text: sent) })
+    note.sentences.push(note.text.split(/[,.]/).map { |sent| Sentence.new(text: sent) }) if note.sentences.empty?
     return note
   end
 
