@@ -43,14 +43,30 @@
 }
 
 .timer {
-  color: rgb(4, 4, 4);
+  position: absolute;
+  margin: auto;
+  top: 45%; //82% was when it was at bottom
+  right: 0;
+  left: 0;
+  width: 210px;
+  background-color: #000;
+  border-radius:$border-radius-lg;
+}
+
+.inner-timer {
+  color: $red;
   font-size:30px;
   font-weight: bolder;
-  border-radius:0;
   text-align: center;
 }
 
 .mic-text{
+  position: absolute;
+  margin: auto;
+  top: 80%; //82% was when it was at bottom
+  right: 0;
+  left: 0;
+  width: 210px;
   text-align: center;
   font-size:30px;
   font-weight: bolder;

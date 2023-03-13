@@ -5,11 +5,12 @@ export default class extends Controller {
   connect() {
     console.log("Connected to Timer JS")
 
-    const micToggle = document.querySelector("#mic-toggle");
-    console.log(micToggle)
+    // const micToggle = document.querySelector("#mic-toggle");
+    // console.log(micToggle)
 
     let time = document.getElementsByClassName("timer")
     console.log(time[0].innerHTML)
+    console.log('aamir')
 
     let timings = 60;
     let i = 1;

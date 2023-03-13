@@ -97,10 +97,12 @@
 
 <%# text display for the mic button %>
 
-<div class="mic-text">Tap to record</div>
+<div class="mic-text">⇧<br>Tap to start recording</div>
 
  <%# timer for the record button %>
-<div class="timer" data-controller="timer" ></div>
+<div class="timer" data-controller="timer" >
+  <div class="inner-timer"></div>
+</div>
 
 
 
@@ -108,7 +110,16 @@
   // Html selectors
   const micToggle = document.querySelector("#mic-toggle");
   const micIcon = document.querySelector(".fa.fa-microphone");
-  const micContainer = document.querySelector("#mic-conta iner");
+  const micContainer = document.querySelector("#mic-container");
+  let micText = document.querySelector(".mic-text");
+  let time = document.getElementsByClassName("inner-timer")
+  // console.log(time[0].innerHTML)
+
+  let timings = 60;
+  let i = 1;
+  let s = 0;
+  let m = 0;
+  let myInterval;
 
   // function to imagify the text in note.text
   function imagify(note)
@@ -154,15 +165,44 @@
           });
       });
 
+      function Timeup() {
+        if (m > 0) {
+          time[0].innerHTML = `${m.toString().padStart(1,'0')}m : ${s.toString().padStart(1,'0')}s : ${((timings*60+i)%100).toString().padStart(2,'0')}`;
+        }
+        else if (s > 0) {
+          time[0].innerHTML = `${s.toString().padStart(1,'0')}s : ${((timings*60+i)%100).toString().padStart(2,'0')}`;
+        }
+        else {
+          time[0].innerHTML = `0s : ${((timings*60+i)%100).toString().padStart(2,'0')}`;
+        }
+
+        i++;
+        if (i > 99) {
+          s++;
+          i = 1;
+        }
+        if (s > 59) {
+          s = 0
+          m++;
+          // i = 1;
+        }
+      }
+
       // EventListener to toggle recorder
        micToggle.addEventListener("click", ()=> {
           if (mediaRecorder.state == "inactive") {
             mediaRecorder.start()
             micIcon.style.color = "red";
+            i=0; s=0; m=0;
+            myInterval = setInterval(Timeup, 10);
+            console.log(micText)
+            micText.innerHTML = '⇧<br>Tap to stop recording'
             micToggle.setAttribute("data-bs-toggle", "modal");
             micToggle.setAttribute("data-bs-target", "#exampleModalReminder");
           } else {
             micIcon.style.color = "white";
+            clearInterval(myInterval)
+            micText.innerHTML = '⇧<br>Tap to start recording'
             micToggle.removeAttribute("data-bs-toggle");
             micToggle.removeAttribute("data-bs-target");
             mediaRecorder.stop();
