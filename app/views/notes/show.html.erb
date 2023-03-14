@@ -140,7 +140,7 @@
 </head>
 
 <div class="note-body">
-  <div class="nav d-flex profile justify-content-between align-items-center">
+  <div class="nav-show-page d-flex profile justify-content-between align-items-center">
     <button class="button-85"><%= link_to "Inbox", notes_path%></button>
     <button class="button-85"><%= link_to "+Note", new_note_path%></button>
 
@@ -157,31 +157,29 @@
   <!-- Button trigger modal -->
 
 
+  <div class="show-container" data-controller="pop-up-msg">
+    <h3 class='container' data-action="click->pop-up-msg#showMsg" style="color: white; cursor:pointer;"><%= @note.text.truncate(100) %></h3>
 
-
-    <div class="show-container" data-controller="pop-up-msg">
-      <h3 class='container' data-action="click->pop-up-msg#showMsg" style="color: white; cursor:pointer;"><%= @note.text.truncate(100) %></h3>
-
-      <div class="pop-up-msg-box-container">
-        <div class="pop-up-msg-box">
-          <div class="pop-up-msg-box-top mb-2">
-            <p class="fav-btn" style="cursor:pointer;" data-action="click->pop-up-msg#addFav">Add Favorite</p>
-            <p class="close-btn" style="cursor:pointer;" data-action="click->pop-up-msg#closeMsg">Close</p>
-          </div>
-          <%= @note.text %>
+    <div class="pop-up-msg-box-container">
+      <div class="pop-up-msg-box">
+        <div class="pop-up-msg-box-top mb-2">
+          <p class="fav-btn" style="cursor:pointer;" data-action="click->pop-up-msg#addFav">Add Favorite</p>
+          <p class="close-btn" style="cursor:pointer;" data-action="click->pop-up-msg#closeMsg">Close</p>
         </div>
+        <%= @note.text %>
       </div>
-
     </div>
 
-
+  </div>
 
   <%# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
   Launch a button
   </button> %>
 
+<div data-controller="fave-images">
+
   <div id="drag-container">
-    <div id="spin-container" class="display-image">
+    <div id="spin-container" class="display-image" data-action="click->fave-images#showCarousel">
       <!-- Add your images (or video) here -->
       <% @note.sentences.each do |sentence| %>
         <img class=""
@@ -193,10 +191,96 @@
       <!-- Text at center of ground -->
       <%# <p>AI Project</p> %>
     </div>
+
     <div id="ground">
       <%# <img src="https://4.bp.blogspot.com/-ytDs5i-w15w/UYOloZEdIxI/AAAAAAAAAX0/G6L2BsLnJwc/s1600/Pensieve2.jpg" alt="" style='border-radius: 50%;'> %>
     </div>
   </div>
+
+    <div class="carousel-container">
+      <p class="carousel-close-btn" style="cursor:pointer;" data-action="click->fave-images#closeCarousel">Close</p>
+
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+        <div class="carousel-indicators">
+          <% @note.sentences.each_with_index do |sentence, i|  %>
+            <% if i==0 %>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+            <% else %>
+              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to=<%="#{i}"%> aria-label=<%="Slide #{i}"%>></button>
+            <% end %>
+          <% end  %>
+        </div>
+
+        <div class="carousel-inner">
+          <% @note.sentences.each_with_index do |sentence, index| %>
+            <% if index == 0 %>
+              <div class="carousel-item active">
+            <% else %>
+              <div class="carousel-item">
+            <% end %>
+                <img class="d-block w-100" src=<%= sentence.ai_image.url || @loading_pic %> alt="ai_image"/>
+                <% if sentence.like %>
+                  <button type="button" class="favorite-button is-favorite" data-sentence-id=<%= sentence.id %>>
+                <% else %>
+                  <button type="button" class="favorite-button" data-sentence-id=<%= sentence.id %>>
+                <% end %>
+                  <i class="fas fa-heart favorite__icon favorite--enable"></i>
+                  <i class="far fa-heart favorite__icon favorite--not"></i>
+                </button>
+
+              </div>
+          <% end %>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+<%# testing %>
+
+        <script>
+          const favoriteButtons = document.querySelectorAll(".favorite-button");
+          favoriteButtons.forEach(element => {
+            element.addEventListener("click", (event) => {
+              const button = event.currentTarget;
+              button.classList.toggle("is-favorite");
+              console.log('hello')
+              const xhr = new XMLHttpRequest();
+              const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+              console.log(crsfToken);
+              // xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
+              xhr.open("PATCH", '/like_image');
+              xhr.setRequestHeader("X-CSRF-Token", crsfToken);
+              // console.log(button.getAttribute('data-sentence-id'));
+              // console.log(button.getAttribute('data-sentence-id').toString());
+              const body = JSON.stringify({ sentence_id: button.getAttribute('data-sentence-id') });
+              xhr.send(body);
+              //   })
+
+              // fetch("/like_image", {
+              //   method: "PATCH",
+              //   body: JSON.stringify({
+              //     sentence_id: button.getAttribute('data-sentence-id');,
+              //   }),
+              //   headers: {
+              //     'Content-type': 'application/json; charset=UTF-8',
+              //   }
+              // });
+            });
+          });
+        </script>
+
+
+
+
+      </div>
+    </div>
+
+</div>
 
 <div id="music-container" style="margin-bottom: 50px;"></div>
 </div>
