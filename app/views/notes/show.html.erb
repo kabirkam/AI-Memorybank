@@ -143,7 +143,12 @@
   <div class="nav-show-page d-flex profile justify-content-between align-items-center">
     <button class="button-85"><%= link_to "Inbox", notes_path%></button>
     <button class="button-85"><%= link_to "+Note", new_note_path%></button>
-
+        <% if @note.user == current_user %>
+          <%= link_to "Delete",
+          note_path(@note),
+          data: {turbo_method: :delete},
+          class: 'button-85'%>
+        <% end %>
     <div class="avatar border-radius">
       <div class="grad border-radius spin"></div>
       <button type="button" data-toggle="modal" data-target="#exampleModalCenter">

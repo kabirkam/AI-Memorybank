@@ -17,13 +17,20 @@
     <div class="card-notes">
       <% @notes.each do |note|%>
         <%= link_to note_path(note) do %>
-        <div class="card-note">
-          <img src=<%= (note.sentences[0]) && (note.sentences[0].ai_image.url) ? note.sentences[0].ai_image.url : @loading_pic %>  width="256" height="256">
-          <div class="text">
-            <%#= link_to note.text.truncate_words(10), note_path(note) %>
-            <%= note.text.truncate_words(10) %>
+          <div class="card-note">
+            <img src=<%= (note.sentences[0]) && (note.sentences[0].ai_image.url) ? note.sentences[0].ai_image.url : @loading_pic %>  width="256" height="256">
+            <div class="text">
+              <%#= link_to note.text.truncate_words(10), note_path(note) %>
+              <%= note.text.truncate_words(10) %>
+            </div>
+            <% if note.user == current_user %>
+              <%= link_to "Delete",
+              note_path(note),
+              data: {turbo_method: :delete},
+              class: 'delete-button'
+              %>
+            <% end %>
           </div>
-        </div>
         <% end %>
       <% end %>
     </div>

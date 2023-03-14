@@ -1,0 +1,11 @@
+<div class="container w-50">
+<label for="reminder">Set your reminder</label>
+<input type="datetime-local" id="reminder"
+       min=<%DateTime.now%>>
+<div class="container w-50">
+
+<%= form_for [@note, @reminder] do |f| %>
+  <%= f.label :datetime %>:
+  <%= f.datetime-local :first_name %><br />
+  <%= f.submit %>
+<% end %>
