@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
   get "/profile", to: "pages#profile"
-  get '/test', to: "pages#test"
+  get '/test', to: "pages#test", as: 'test'
   post '/transcript', to: "notes#voice_to_text"
   post '/imagify', to: "notes#generate_imgs"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

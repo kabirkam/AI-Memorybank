@@ -1,7 +1,7 @@
-
-<%# this is the nav bar  %>
+<%# this is the nav bar %>
 <div class="nav d-flex profile justify-content-between align-items-center">
   <button class="button-85"><%= link_to "Inbox", notes_path %></button>
+  <button class="button-85"><%= link_to "Test", test_path %></button>
 
   <div class="avatar border-radius">
       <div class="grad border-radius spin"></div>
@@ -106,17 +106,17 @@
 <script src="https://cdn.jsdelivr.net/npm/circletype@2.3.0/dist/circletype.min.js"></script>
 <script>
   // Html selectors
-  const micIcon = document.querySelector(".fa.fa-microphone");
-  const micToggle = document.querySelector("#mic-toggle");
-  const micContainer = document.querySelector("#mic-container");
-  let micText = document.querySelector(".mic-text");
-  let time = document.getElementsByClassName("inner-timer")
+  var micToggle = document.querySelector("#mic-toggle"  );
+  var micIcon = document.querySelector(".fa.fa-microphone");
+  var micContainer = document.querySelector("#mic-container");
+  var micText = document.querySelector(".mic-text");
+  var time = document.getElementsByClassName("inner-timer")
 
-  let timings = 60;
-  let i = 1;
-  let s = 0;
-  let m = 0;
-  let myInterval;
+  var timings = 60;
+  var i = 1;
+  var s = 0;
+  var m = 0;
+  var myInterval;
 
   // function to imagify the text in note.text
   function imagify(note)
@@ -131,7 +131,7 @@
     }
 
   // Records audio data into const
-  const audioChunks = [];
+  var audioChunks = [];
   // Ask user for access to their microphone.
   navigator.mediaDevices.getUserMedia({ audio: true })
   .then(stream => {
