@@ -36,6 +36,8 @@ class NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id])
+    @note.destroy!
+    redirect_to notes_path, status: :see_other
   end
 
   def open_tmpfile_mp3(tmpfile)
