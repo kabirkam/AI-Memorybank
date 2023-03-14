@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/test', to: "pages#test", as: 'test'
   post '/transcript', to: "notes#voice_to_text"
   post '/imagify', to: "notes#generate_imgs"
+  patch '/like_image', to: "sentences#like_sentence"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
