@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: "pages#home"
+
+  devise_scope :user do
+    authenticated :user do
+      root 'notes#new', as: :authenticated_root
+    end
+
+    unauthenticated do
+      root 'devise/sessions#new', as: :unauthenticated_root
+    end
+  end
+
   get "/profile", to: "pages#profile"
   get '/test', to: "pages#test", as: 'test'
   post '/transcript', to: "notes#voice_to_text"

@@ -1,8 +1,8 @@
-<h1 class="memory">MyPensieve.ai</h1>
-<%= image_tag "thoughts.png", height: 300, class: "brain" %>
-<h1 class="slogan">Note taking With a twist</h1>
+<div id="home-body">
+  <h1 class="memory">MyPensieve.ai</h1>
+  <%= image_tag "thoughts.png", height: 300, class: "brain" %>
+  <h1 class="slogan">Note taking With a twist</h1>
 
-<body id="home-body">
   <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
@@ -46,15 +46,13 @@
       </div>
     </div>
   </div>
-</body>
+</div>
 
 <script type="text/javascript">
     document.getElementById("email-sign-in").onclick = function () {
         location.href = "/notes/new";
     };
-</script>
 
-<script>
 /* Get the documentElement (<html>) to display the page in fullscreen */
 var elem = document.documentElement;
 
