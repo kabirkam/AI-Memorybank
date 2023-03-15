@@ -140,23 +140,7 @@
 </head>
 
 <div class="note-body">
-  <div class="nav-show-page d-flex profile justify-content-between align-items-center">
-    <button class="button-85"><%= link_to "Inbox", notes_path%></button>
-    <button class="button-85"><%= link_to "+Note", new_note_path%></button>
-        <% if @note.user == current_user %>
-          <%= link_to "Delete",
-          note_path(@note),
-          data: {turbo_method: :delete},
-          class: 'button-85'%>
-        <% end %>
-    <div class="avatar border-radius">
-      <div class="grad border-radius spin"></div>
-      <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-        <img src="https://lh3.googleusercontent.com/a/AGNmyxYdZLRF4ONYN4IMCGDLA5-rxxvVnuPRAPAYI3op9Q=s192-c-rg-br100" class="avatar-img border-radius" />
-      </button>
-      </a>
-    </div>
-  </div>
+
 
   <%# modal for the show page with the pop up text %>
   <!-- Button trigger modal -->
@@ -428,7 +412,21 @@
   };
 </script>
 
-  <%# <div class="show-page-fade"></div> %>
+
+<div class='fixed-bottom'>
+  <div class="nav-show-page d-flex profile justify-content-between align-items-center">
+    <button class="button-85"><%= link_to "Inbox", notes_path%></button>
+    <button class="button-85"><%= link_to "+Note", new_note_path%></button>
+    <div class="avatar border-radius">
+      <div class="grad border-radius"></div>
+      <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <img src="https://cdn-icons-png.flaticon.com/512/3917/3917215.png" class="avatar-img border-radius" />
+      </button>
+      </a>
+    </div>
+  </div>
+</div>
+
 
 <!-- Modal bootstrap -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -437,23 +435,30 @@
       <div class="modal-body nav-menu">
 
       <ul class="menu">
-      <li>
-        Avatar
+
+      <li class = 'button-submenu'>
+        <i class="fa-regular fa-bell"> Alarm</i>
+        <ul class='sub-menu'>
+        <li class="fa-regular fa-bell">Set alarm</li>
+        <li class="fa-solid fa-broom">Clear alarm</li>
+        </ul>
+      </li>
+
+      <li class= 'button-submenu'>
+        <i class="fa-regular fa-image">Recreate</i>
         <ul class="sub-menu">
-          <li>Edit profile image</li>
+        <li class="fa-solid fa-heart-crack">Non-favourites</li>
+        <li class="fa-solid fa-globe">All images</li>
         </ul>
       </li>
 
       <li>
-        Favorite notes
-        <ul class="sub-menu">
-        </ul>
-      </li>
-
-      <li>
-        Log Out
-        <ul class="sub-menu">
-        </ul>
+          <% if @note.user == current_user %>
+            <%= link_to "Delete",
+            note_path(@note),
+            data: {turbo_method: :delete},
+            class: 'button-submenu fa-solid fa-dumpster'%>
+        <% end %>
       </li>
     </ul>
 
