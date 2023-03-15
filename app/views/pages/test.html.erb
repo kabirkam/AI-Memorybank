@@ -11,6 +11,18 @@
     </div>
 </div>
 
+<div class="reminder-form" data-controller="reminders">
+  <%= simple_form_for [@note, @reminder] do |f| %>
+    <%= f.input :date_time, as: :string, label: "input a date", data: { behavior: "flatpickr" } %>
+    <%= f.submit 'set your reminder' %>
+<% end %>
+</div>
+
+
+
+
+
+
 
 <%# https://github.com/nibab-boo/medium_google_speech_api/blob/master/app/views/pages/home.html.erb %>
 <div class="container">
@@ -25,7 +37,7 @@
   <div class="recorder-box text-center"></div>
 </div>
 
-<div class="modal fade" id="exampleModalReminder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<%# <div class="modal fade" id="exampleModalReminder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -144,4 +156,4 @@
               });
         }
     });
-</script>
+</script> %>

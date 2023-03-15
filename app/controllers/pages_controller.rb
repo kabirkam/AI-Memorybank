@@ -10,5 +10,7 @@ class PagesController < ApplicationController
   end
 
   def test
+    @note = Note.first
+    @reminder = Reminder.new
   end
 end

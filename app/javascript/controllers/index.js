@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import PopUpMsgController from "./pop_up_msg_controller"
 application.register("pop-up-msg", PopUpMsgController)
+
+import RemindersController from "./reminders_controller"
+application.register("reminders", RemindersController)
