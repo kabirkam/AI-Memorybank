@@ -32,14 +32,14 @@ nav {
   transform: scale(0);
   transform-origin: top center;
   transition: all 300ms ease-in-out;
-  border-radius: 10px;
+  border-radius: 20px;
   padding-left: 0;
 
 }
 .sub-menu li {
-  font-size: 14px;
-  background: rgba(225, 161, 41, 0.8);
-  padding: 8px 16px;
+  font-size: 18px;
+  background: rgba(225, 161, 41, 0.405);
+  padding: 10px 16px;
   color: white;
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
@@ -109,7 +109,7 @@ nav {
 // new inbox
 .button-85 {
   font-weight: 600;
-  padding: 0.9em 2.5em;
+  padding: 7em 7em;
   border: none;
   outline: none;
   color: rgb(255, 255, 255);
@@ -204,8 +204,8 @@ nav {
 }
 
 .avatar {
-	height: 74px;
-	width: 74px;
+	height: 60px;
+	width: 60px;
 	position: relative;
     order: 0;
     flex: 0 1 auto;
@@ -236,8 +236,8 @@ nav {
 }
 
 .avatar-img {
-	height: 70px;
-	width: 70px;
+	height: 56px;
+	width: 56px;
 	background: rgb(119, 255, 0);
 	border: 2px solid black;
 	position: absolute;

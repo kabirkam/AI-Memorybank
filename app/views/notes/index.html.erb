@@ -1,15 +1,5 @@
 <%# this is the nav bar  %>
-<div class="nav d-flex profile justify-content-between align-items-center">
-    <button class="button-85"><%= link_to "+Note", new_note_path%></button>
 
-  <div class="avatar border-radius">
-      <div class="grad border-radius spin"></div>
-      <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-        <img src="https://lh3.googleusercontent.com/a/AGNmyxYdZLRF4ONYN4IMCGDLA5-rxxvVnuPRAPAYI3op9Q=s192-c-rg-br100" class="avatar-img border-radius" />
-      </button>
-      </a>
-    </div>
-</div>
 
 <body class="container inbox-page-1">
   <div>
@@ -34,5 +24,17 @@
         <% end %>
       <% end %>
     </div>
+    <div class='fixed-bottom row-12'>
+    <div class='d-flex justify-content-center'>
+        <button class="button-85"><%= link_to "+Note", new_note_path%></button>
+    </div>
+      <div class="nav d-flex profile justify-content-right align-items-center">
+        <div class="avatar border-radius">
+        <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Hamburger_icon.svg/2048px-Hamburger_icon.svg.png" class="avatar-img border-radius" />
+        </button>
+      </div>
+    </div>
+  </div>
   </div>
 </body>
