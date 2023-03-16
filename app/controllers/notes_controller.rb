@@ -38,6 +38,7 @@ class NotesController < ApplicationController
   def destroy
     @note = Note.find(params[:id])
     @note.destroy!
+    flash[:notice] = "Note Deleted!"
     redirect_to notes_path, status: :see_other
   end
 

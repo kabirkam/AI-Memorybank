@@ -95,20 +95,32 @@
   }
 
   .pop-up-msg-box {
-    background-color: white;
+    // background-color: rgb(224, 216, 143);
     width: 80%;
     height: 400px;
     border-radius: 20px;
     padding: 20px;
-    box-shadow: 5px 5px 5px black;
+    // box-shadow: 5px 5px 5px black;
     overflow: scroll;
     transform: translateY(-120px);
+    // transform: translateY(-70px);
+    background-color: rgb(139, 208, 124);
+    border-radius: 10px;
+    box-shadow: 0 0 0 8px rgba(147, 255, 130, 0.321);
   }
+
+
+
   .pop-up-msg-box-top {
     display: flex;
     justify-content: space-between;
 
   }
+}
+
+p {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 17px
 }
 
 

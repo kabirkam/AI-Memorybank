@@ -11,6 +11,7 @@
   border-radius: 10px ;
   box-shadow: 0 1px 2px white;
   background-color: white;
+  position: relative;
 
   img {
     width: 100%;
@@ -49,4 +50,62 @@ a {
   margin: 40px 20px 10px;
   border: 1px solid;
   padding: 20px;
+}
+
+
+.button-new {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  border: 2px solid rgb(231, 50, 50);
+  background-color: #fff;
+  cursor: pointer;
+  box-shadow: 0 0 10px #333;
+  overflow: hidden;
+  transition: .3s;
+}
+// .button-new:hover {
+//   background-color: rgb(245, 207, 207);
+//   transform: scale(1.2);
+//   box-shadow: 0 0 4px #ff0000;
+//   transition: .3s;
+// }
+
+.svg-notes {
+  color: rgb(231, 50, 50);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: .3s;
+}
+
+// .button-new:focus svg {
+//   opacity: 0;
+//   transition: .3s;
+// }
+// // span-notes {
+// //   width: 150px;
+// //   position: absolute;
+// //   opacity: 0;
+// //   transform: translate(-50%, -50%);
+// //   color: rgb(231, 50, 50);
+// //   font-weight: 600;
+// //   transition: .3s;
+// // }
+// .button-new:focus {
+//   width: 150px;
+//   height: 50px;
+//   transition: .3s;
+// }
+// .button-new:focus span {
+//   opacity: 1;
+//   transition: .3s;
+// }
+
+.delete-icon {
+  position: absolute;
+  bottom: 81%;
+  left: 77%;
 }
