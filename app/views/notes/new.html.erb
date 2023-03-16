@@ -1,16 +1,16 @@
-<%# this is the nav bar %>
+<%# this is the nav bar
 <div class="nav d-flex profile justify-content-between align-items-center">
   <button class="button-85"><%= link_to "Inbox", notes_path %></button>
   <%# <button class="button-85"><%= link_to "Test", test_path</button> %>
 
-  <div class="avatar border-radius">
+  <%# <div class="avatar border-radius">
       <div class="grad border-radius spin"></div>
       <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
         <img src="https://lh3.googleusercontent.com/a/AGNmyxYdZLRF4ONYN4IMCGDLA5-rxxvVnuPRAPAYI3op9Q=s192-c-rg-br100" class="avatar-img border-radius" />
       </button>
       </a>
     </div>
-</div>
+</div> %>
 
 
 <%# this is a background img %>
@@ -32,10 +32,46 @@
     <div class="recorder-box"></div>
 </div>
 
+ <%# hamburger nav bar bootsrap %>
+<!--Navbar-->
+<nav class="navbar navbar-light navbar-1 white navbar-top">
 
+  <!-- Navbar brand -->
+  <a class="navbar-brand" href="#">MyPensieve.ai</a>
+
+  <!-- Collapse button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent15"
+    aria-controls="navbarSupportedContent15" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+  <!-- Collapsible content -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent15">
+
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <%= link_to "Home", notes_path, class: "nav-link" %>
+        <%# <a class="nav-link" href="">Home<span class="sr-only">(current)</span></a> %>
+      </li>
+      <li class="nav-item">
+        <%# <a class="nav-link" href="#">Change Password</a> %>
+        <%= link_to "Change password",edit_user_registration_path(current_user), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%# <a class="nav-link" href="#">Sign out</a> %>
+        <%= link_to "Log out", destroy_user_session_path, class: "nav-link", data: {turbo_method: :delete} %>
+      </li>
+    </ul>
+
+    <!-- Links -->
+
+  </div>
+  <!-- Collapsible content -->
+
+</nav>
+<!--/.Navbar-->
 
 <!-- Modal bootstrap #1 - profile page click -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<%# <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-body nav-menu">
@@ -66,7 +102,7 @@
 
       <li>
         <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
-        <ul class="sub-menu">
+        <%# <ul class="sub-menu">
         </ul>
       </li>
     </ul>
@@ -75,7 +111,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> %>
 
 
 <!-- Modal bootstrap #2 - voice recording confirmation -->
