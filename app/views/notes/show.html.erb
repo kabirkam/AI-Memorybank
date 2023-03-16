@@ -260,9 +260,8 @@
       <div class="avatar border-radius">
         <div class="grad border-radius"></div>
         <button type="button" data-toggle="modal" data-target="#exampleModalCenter">
-          <img src="https://cdn-icons-png.flaticon.com/512/3917/3917215.png" class="avatar-img border-radius" />
+          <img src="https://mdbootstrap.com/img/svg/hamburger6.svg?color=000" class="avatar-img border-radius" />
         </button>
-        </a>
       </div>
     </div>
   </div>
@@ -281,14 +280,14 @@
       <li class='menu-item'>
         <i class="fa-regular fa-bell pe-2"></i>Alarm
         <ul class='sub-menu button-85' id="alarm-form">
-          <li class="fa-regular container reminder-form">
+          <div class="fa-regular container reminder-form button-submenu">
             <div data-controller="reminders">
               <%= simple_form_for [@note, @reminder] do |f| %>
-                <%= f.input :date_time, as: :string, label: "Reminder", data: { behavior: "flatpickr" } %>
-                <%= f.submit 'Set Reminder' %>
+                <%= f.input :date_time, as: :string, label: false, data: { behavior: "flatpickr" } %>
+                <%= f.submit 'Set Reminder',  :class => "button-85" %>
               <% end %>
             </div>
-          </li>
+          </div>
           <%# <li class="fa-solid fa-broom">Clear alarm</li> %>
         </ul>
       </li>

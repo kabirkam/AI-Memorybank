@@ -104,7 +104,7 @@
     overflow: scroll;
     transform: translateY(-120px);
     // transform: translateY(-70px);
-    background-color: rgb(139, 208, 124);
+    background-color: #f1f3f4;
     border-radius: 10px;
     box-shadow: 0 0 0 8px rgba(147, 255, 130, 0.321);
   }
@@ -200,8 +200,8 @@ p {
   position: absolute;
   background: black;
   left: 0;
-  top: 0;
-  bottom: 0;
+  top: 65px;
+  bottom: 65px;
   right: 0;
   display: flex;
   flex-direction: column;
@@ -222,7 +222,11 @@ p {
 .reminder-form {
   text-align: center;
   margin: 10px;
-  background-color: black;
+  // background-color: black;
+}
+
+.InputText.flatpickr-input.flatpickr-mobile {
+  border-color:#000;height:1.5em;
 }
 
 .menu-item {
