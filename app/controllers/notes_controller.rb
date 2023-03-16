@@ -61,8 +61,13 @@ class NotesController < ApplicationController
     mp3file = open_tmpfile_mp3(params["files"].tempfile)
     response = client.translate(parameters: { model: "whisper-1", file: mp3file })
     puts 'api done'
-    note_text = response["text"]
-    create(mp3file, note_text)
+    if response['text']
+      note_text = response["text"]
+      create(mp3file, note_text)
+    else
+      puts "no audio was recorded"
+      redirect_to new_note_path, flash: { notice: "No audio was recorded" }
+    end
   end
 
   def make_sentences(note)
