@@ -1,85 +1,87 @@
-<div id="home-body">
-  <h1 class="memory">MyPensieve.ai</h1>
-  <%= image_tag "thoughts.png", class: "brain" %>
-  <h1 class="slogan my-3">Note taking With a twist</h1>
+<body id="home-body">
+  <div>
+    <h1 class="memory">MyPensieve.ai</h1>
+    <%= image_tag "thoughts.png", class: "brain" %>
+    <h1 class="slogan my-3">Note taking With a twist</h1>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-        <div class="card border-0 shadow rounded-3 my-2">
-          <div class="card-body p-4 p-sm-5">
-            <h5 class="card-title text-center mb-3 fw-light fs-5">Sign In</h5>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-0 shadow rounded-3 my-2">
+            <div class="card-body p-4 p-sm-5">
+              <h5 class="card-title text-center mb-3 fw-light fs-5">Sign In</h5>
 
-            <!--form>
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Email address</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Password</label>
-              </div>
+              <!--form>
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+                  <label for="floatingInput">Email address</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                  <label for="floatingPassword">Password</label>
+                </div>
 
-              <div class="form-check mb-3">
-                <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                <label class="form-check-label" for="rememberPasswordCheck">
-                  Remember password
-                </label>
-              </div>
-              <div class="d-grid">
-                <button class="btn btn-primary btn-login text-uppercase fw-bold" id="email-sign-in" type="submit">Sign
-                  in</button>
-              </div>
-              <hr class="my-4">
-              <div class="d-grid mb-2">
-                <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
-                  <i class="fab fa-google me-2"></i> Sign in with Google
-                </button>
-              </div>
-              <div class="d-grid">
-                <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
-                  <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
-                </button>
-              </div>
-            </form-->
-
-            <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-              <div class="form-inputs">
-                <%= f.input :email,
-                            required: false,
-                            autofocus: true,
-                            input_html: { autocomplete: "email" },
-                            class: "form-floating mb-3" %>
-                <%= f.input :password,
-                            required: false,
-                            input_html: { autocomplete: "current-password" } %>
-                <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-                <div class="oath d-grid">
-                <%= f.button :submit, "Log in", class: "btn btn-sign-in btn-login text-uppercase fw-bold mb-4" %>
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                  <label class="form-check-label" for="rememberPasswordCheck">
+                    Remember password
+                  </label>
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-login text-uppercase fw-bold" id="email-sign-in" type="submit">Sign
+                    in</button>
+                </div>
+                <hr class="my-4">
+                <div class="d-grid mb-2">
                   <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
-                  <i class="fab fa-google me-2"></i> Sign in with Google
+                    <i class="fab fa-google me-2"></i> Sign in with Google
                   </button>
-                  <br>
+                </div>
+                <div class="d-grid">
                   <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
                     <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
                   </button>
                 </div>
-                <br>
-                <div class="text-center">
-                <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-                  <%= link_to "Sign up", new_registration_path(resource_name) %><br />
-                <% end %>
-                </div>
+              </form-->
 
-              <div class="form-actions">
-              </div>
-            <% end %>
+              <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <div class="form-inputs">
+                  <%= f.input :email,
+                              required: false,
+                              autofocus: true,
+                              input_html: { autocomplete: "email" },
+                              class: "form-floating mb-3" %>
+                  <%= f.input :password,
+                              required: false,
+                              input_html: { autocomplete: "current-password" } %>
+                  <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+                  <div class="oath d-grid">
+                  <%= f.button :submit, "Log in", class: "btn btn-sign-in btn-login text-uppercase fw-bold mb-4" %>
+                    <button class="btn btn-google btn-login text-uppercase fw-bold" type="submit">
+                    <i class="fab fa-google me-2"></i> Sign in with Google
+                    </button>
+                    <br>
+                    <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="submit">
+                      <i class="fab fa-facebook-f me-2"></i> Sign in with Facebook
+                    </button>
+                  </div>
+                  <br>
+                  <div class="text-center">
+                  <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+                    <%= link_to "Sign up", new_registration_path(resource_name) %><br />
+                  <% end %>
+                  </div>
+
+                <div class="form-actions">
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 
-<%# <%= render "devise/shared/links" %> >
+  <%# <%= render "devise/shared/links" %> >
+</body>

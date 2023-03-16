@@ -7,6 +7,7 @@ class RemindersController < ApplicationController
       @note.reminder = @reminder
       @note.save
       flash[:notice] = "reminder saved!"
+      flash[:message] = "reminder saved!"
     else
       flash[:notice] = "reminder already exists!"
     end

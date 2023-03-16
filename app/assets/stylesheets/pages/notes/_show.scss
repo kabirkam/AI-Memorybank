@@ -5,6 +5,18 @@
   // background-image: url("https://wallpapercave.com/wp/wp9247430.jpg");
 }
 
+.note-show-page {
+  background-image: url("https://wallpaperaccess.com/full/1385607.jpg");
+  background-size: cover;
+  flex-direction: unset;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh-100px);
+  overflow: scroll;
+}
+
 .carousel-container {
 
   opacity: 0;
@@ -23,6 +35,10 @@
   height: 100vh;
 
   transition: all 0.1s;
+
+  .carousel {
+    transform: translateY(-70px);
+  }
 
   .carousel-inner {
     width: 100vw;
@@ -43,10 +59,11 @@
   right: 20px;
 }
 
-.show-container {
+.message-container {
 
   z-index: 1;
-  margin: 20px 0 40px 0;
+  margin: 40px 0 40px 0;
+  height: 140px;
 
   h3 {
     text-align: center;
@@ -85,6 +102,7 @@
     padding: 20px;
     box-shadow: 5px 5px 5px black;
     overflow: scroll;
+    transform: translateY(-70px);
   }
   .pop-up-msg-box-top {
     display: flex;
@@ -192,4 +210,30 @@
   text-align: center;
   margin: 10px;
   background-color: black;
+}
+
+.button-submenu {
+
+  font-family: var(--bs-body-font-family);
+
+  .fa-regular {
+    margin-right: 10px;
+  }
+
+  .fa-solid {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (min-height: 700px) {
+
+  .message-container {
+    height: 200px;
+    margin: 50px auto;
+  }
+
+  #spin-container {
+    margin: 0px auto 100px auto !important;
+  }
+
 }
