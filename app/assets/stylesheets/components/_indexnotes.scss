@@ -20,15 +20,16 @@
 
 .delete-button {
   font-weight: 600;
-  // padding: 0.9em 2.5em;
+  padding: 0.2em 0.5em;
+  background-color: black;
   text-align: center;
   color: red;
   // background: red;
   position: relative;
-  border-radius: 10px;
+  border-radius: 5px;
   align-items: right;
-  top: 15px;
-  left: 217px;
+  left: 35%;
+  bottom: 5px;
 }
 
 .text{
