@@ -10,8 +10,9 @@ export default class extends Controller {
     const myDate = document.getElementById("reminder_date_time");
 
     flatpickr(myDate, {
-      minDate: 'today',
-      enableTime: true,
+      plugins: [new confirmDatePlugin({})],
+      minDate: 'tomorrow',
+      enableTime: true
     })
   }
 }

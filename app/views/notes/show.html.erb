@@ -30,7 +30,7 @@
 
     #drag-container,
     #spin-container {
-      margin-bottom: 100px !important;
+      margin-bottom: 30px !important;
       position: relative;
       display: -webkit-box;
       display: -ms-flexbox;
@@ -147,7 +147,9 @@
 
 
   <div class="show-container" data-controller="pop-up-msg">
-    <h3 class='container' data-action="click->pop-up-msg#showMsg" style="color: white; cursor:pointer;"><%= @note.text.truncate(100) %></h3>
+    <h3 class='container' data-action="click->pop-up-msg#showMsg" style="color: white; cursor:pointer;">
+    <%= (@note.text.length>110)? raw(@note.text.truncate(180)+'<em style="color: #C83200">read more</em>') : @note.text %>
+    </h3>
 
     <div class="pop-up-msg-box-container">
       <div class="pop-up-msg-box">
@@ -271,7 +273,7 @@
 
 </div>
 
-<div id="music-container" style="margin-bottom: 50px;"></div>
+<div id="music-container"></div>
 </div>
 </div>
 
@@ -281,7 +283,7 @@
   // Github verson (1 file .html): https://github.com/HoangTran0410/3DCarousel/blob/master/index.html
 
   // You can change global variables here:
-  var radius = 150; // how big of the radius
+  // var radius = 150; // will be set below instead
   var autoRotate = true; // auto rotate or not
   var rotateSpeed = -45; // unit: seconds/360 degrees
   var imgWidth = 153; // width of images (unit: px)
@@ -297,6 +299,11 @@
 
   var odrag = document.getElementById("drag-container");
   var ospin = document.getElementById("spin-container");
+  var numberOfImages = ospin.getElementsByTagName('img').length
+  var radius = (150*numberOfImages)/(2*3.1415); // how big of the radius
+  console.log('num images, followed by radius')
+  console.log(numberOfImages);
+  console.log(radius);
   var aImg = ospin.getElementsByTagName("img");
   var aVid = ospin.getElementsByTagName("video");
   var aEle = [...aImg, ...aVid]; // combine 2 arrays
@@ -432,23 +439,30 @@
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <div class="modal-body nav-menu">
+      <div class="modal-body nav-menu button-85">
 
       <ul class="menu">
 
       <li class = 'button-submenu'>
-        <i class="fa-regular fa-bell"> Alarm</i>
-        <ul class='sub-menu'>
-        <li class="fa-regular fa-bell">Set alarm</li>
-        <li class="fa-solid fa-broom">Clear alarm</li>
+        <i class="fa-regular fa-bell">Alarm</i>
+        <ul class='sub-menu button-85' id="alarm-form">
+          <li class="fa-regular container reminder-form">
+            <div data-controller="reminders">
+              <%= simple_form_for [@note, @reminder] do |f| %>
+                <%= f.input :date_time, as: :string, label: "Reminder", data: { behavior: "flatpickr" } %>
+                <%= f.submit 'Set Reminder' %>
+              <% end %>
+            </div>
+          </li>
+          <%# <li class="fa-solid fa-broom">Clear alarm</li> %>
         </ul>
       </li>
 
       <li class= 'button-submenu'>
         <i class="fa-regular fa-image">Recreate</i>
         <ul class="sub-menu">
-        <li class="fa-solid fa-heart-crack">Non-favourites</li>
-        <li class="fa-solid fa-globe">All images</li>
+          <li class="fa-solid fa-heart-crack">Non-favourites</li>
+          <li class="fa-solid fa-globe">All images</li>
         </ul>
       </li>
 

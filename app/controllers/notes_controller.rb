@@ -8,6 +8,7 @@ class NotesController < ApplicationController
 
   def show
     @note = Note.find(params[:id])
+    @reminder = @note.reminder || Reminder.new
     @loading_pic = "https://res.cloudinary.com/teepublic/image/private/s--c4AzvgDC--/t_Preview/t_watermark_lock/b_rgb:191919,c_lpad,f_jpg,h_630,q_90,w_1200/v1598801323/production/designs/13546919_0.jpg"
   end
 
