@@ -244,43 +244,6 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
-<%# testing %>
-
-        <script>
-          var favoriteButtons = document.querySelectorAll(".favorite-button");
-          favoriteButtons.forEach(element => {
-            element.addEventListener("click", (event) => {
-              const button = event.currentTarget;
-              button.classList.toggle("is-favorite");
-              console.log('hello')
-              const xhr = new XMLHttpRequest();
-              const crsfToken = document.querySelector("meta[name='csrf-token']").content;
-              console.log(crsfToken);
-              // xhr.setRequestHeader("Content-type", "application/json; charset=utf-8");
-              xhr.open("PATCH", '/like_image');
-              xhr.setRequestHeader("X-CSRF-Token", crsfToken);
-              // console.log(button.getAttribute('data-sentence-id'));
-              // console.log(button.getAttribute('data-sentence-id').toString());
-              const body = JSON.stringify({ sentence_id: button.getAttribute('data-sentence-id') });
-              xhr.send(body);
-              //   })
-
-              // fetch("/like_image", {
-              //   method: "PATCH",
-              //   body: JSON.stringify({
-              //     sentence_id: button.getAttribute('data-sentence-id');,
-              //   }),
-              //   headers: {
-              //     'Content-type': 'application/json; charset=UTF-8',
-              //   }
-              // });
-            });
-          });
-        </script>
-
-
-
-
       </div>
     </div>
 
@@ -306,6 +269,58 @@
 
 
 </div>
+
+
+<!-- Modal bootstrap #1 - profile page click -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body nav-menu">
+
+      <ul class="menu">
+      <li class='menu-item'>
+        <i class="fa-regular fa-bell pe-2"></i>Alarm
+        <ul class='sub-menu button-85' id="alarm-form">
+          <li class="fa-regular container reminder-form">
+            <div data-controller="reminders">
+              <%= simple_form_for [@note, @reminder] do |f| %>
+                <%= f.input :date_time, as: :string, label: "Reminder", data: { behavior: "flatpickr" } %>
+                <%= f.submit 'Set Reminder' %>
+              <% end %>
+            </div>
+          </li>
+          <%# <li class="fa-solid fa-broom">Clear alarm</li> %>
+        </ul>
+      </li>
+
+      <li class='menu-item' id='regen-btn' data-note-id="<%= @note.id %>">
+        <i class="fa-regular fa-image pe-2"></i>Reload AI-Images
+      </li>
+
+      <li class='menu-item'>
+          <i class="fa-solid fa-trash pe-2"></i>
+          <% if @note.user == current_user %>
+            <%= link_to "Delete",
+            note_path(@note),
+            data: {turbo_method: :delete}%>
+        <% end %>
+      </li>
+
+      <li class='menu-item'>
+        <i class="fa fa-sign-out pe-2" style="font-size: 22px; bottom:0"></i>
+        <%= link_to "Log out", destroy_user_session_path, class: "dropdown-item", data: {turbo_method: :delete} %>
+        <ul class="sub-menu">
+        </ul>
+      </li>
+    </ul>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- github corner (https://github.com/tholman/github-corners) -->
 <script>
@@ -450,50 +465,48 @@
 </script>
 
 
-<!-- Modal bootstrap -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-body nav-menu button-85">
+<script>
+  var favoriteButtons = document.querySelectorAll(".favorite-button");
+  favoriteButtons.forEach(element => {
+    element.addEventListener("click", (event) => {
+      const button = event.currentTarget;
+      button.classList.toggle("is-favorite");
+      console.log('hello')
+      const xhr = new XMLHttpRequest();
+      const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+      console.log(crsfToken);
+      xhr.open("PATCH", '/like_image');
+      xhr.setRequestHeader("X-CSRF-Token", crsfToken);
+      const body = JSON.stringify({ sentence_id: button.getAttribute('data-sentence-id') });
+      xhr.send(body);
+    });
+  });
+</script>
 
-      <ul class="menu">
+<script>
+  // function to imagify the text in note.text
+  function imagify(note)
+    {
+      // Make fetch request to Rails.
+      const crsfToken = document.querySelector("meta[name='csrf-token']").content;
+      fetch("/imagify", {
+        method: "POST",
+        headers: {"X-CSRF-Token": crsfToken, 'Content-Type': 'application/json'},
+        body: JSON.stringify(note)
+      });
+    }
 
-      <li class = 'button-submenu'>
-        <i class="fa-regular fa-bell"></i>Alarm
-        <ul class='sub-menu button-85' id="alarm-form">
-          <li class="fa-regular container reminder-form">
-            <div data-controller="reminders">
-              <%= simple_form_for [@note, @reminder] do |f| %>
-                <%= f.input :date_time, as: :string, label: "Reminder", data: { behavior: "flatpickr" } %>
-                <%= f.submit 'Set Reminder' %>
-              <% end %>
-            </div>
-          </li>
-          <%# <li class="fa-solid fa-broom">Clear alarm</li> %>
-        </ul>
-      </li>
-
-      <li class= 'button-submenu'>
-        <i class="fa-regular fa-image"></i>Recreate
-        <ul class="sub-menu">
-          <li class="fa-solid fa-heart-crack">Non-Favourites</li>
-          <li class="fa-solid fa-globe">All-Images</li>
-        </ul>
-      </li>
-
-      <li class= 'button-submenu'>
-          <i class="fa-solid fa-trash"></i>
-          <% if @note.user == current_user %>
-            <%= link_to "Delete",
-            note_path(@note),
-            data: {turbo_method: :delete}%>
-        <% end %>
-      </li>
-    </ul>
-
-      </div>
-    </div>
-  </div>
-</div>
+    var regenBtn = document.querySelector('#regen-btn')
+    function goToNotePage(noteId){
+      console.log('sleeping....')
+      window.location.href = `/notes/${noteId}`
+    }
+    regenBtn.addEventListener("click", (event) => {
+       console.log('regen button clicked for the note_id below:');
+       console.log(regenBtn.dataset.noteId);
+       imagify({id: regenBtn.dataset.noteId})
+       setTimeout(goToNotePage(regenBtn.dataset.noteId), 3000);
+       });
+</script>
 
 </body>

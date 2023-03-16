@@ -69,7 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_13_124438) do
 
   create_table "sentences", force: :cascade do |t|
     t.text "text"
-    t.boolean "like", default: false
+    t.boolean "like", default: true
     t.bigint "note_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
