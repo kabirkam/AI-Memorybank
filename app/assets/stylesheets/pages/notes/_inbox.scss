@@ -1,5 +1,8 @@
 .inbox-page-1 {
-  background-color: $gray;
+  // background-color: $gray;
+  // background-image: url("https://i.redd.it/uk4of4ovgtc51.jpg");
+  // background-image: url("https://wallpaperaccess.com/full/1385607.jpg");
+  background-image: url("https://wallpapercave.com/wp/wp9247430.jpg");
   color: white;
 }
 
@@ -25,4 +28,81 @@
 
 .inbox-content {
   position: relative;
+}
+
+
+
+
+// button from today
+.new-note-btn {
+  padding: 0.5em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  // position:absolute;
+  position: sticky;
+  bottom: 40px;
+  left: 265px;
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.new-note-btn:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-new-note-btn 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-new-note-btn {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.new-note-btn:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
 }

@@ -1,7 +1,8 @@
 // Specific CSS for your home-page
 .brain {
 margin: auto;
-width: 300px;
+margin-bottom: 20px;
+width: 110px;
 display: block;
 border-radius: 50%;
 }
@@ -9,20 +10,28 @@ border-radius: 50%;
 .memory {
   text-align: center;
   font-size: 350%;
-  font-family: 'Barlow Semi Condensed', sans-serif;  font-weight: 100;
+  color: white;
+  // font-family: 'Barlow Semi Condensed', sans-serif;  font-weight: 100;
+  font-family: $headers-font;
+  padding: 10px;
 }
 
 .slogan {
+  color: white;
+  margin: 10px;
   text-align: center;
   font-size: 200%;
-  font-family: 'Lekton', sans-serif;
+  font-family: $headers-font;
   font-weight: 100;
 }
 
 // login form
 #home-body {
-  background: #f9f9f9;
-  background: linear-gradient(to right, #ffffff, #853a0b);
+  // background: #f9f9f9;
+  // background: linear-gradient(to right, #a905a9, #a3fa44);
+  // background-image: url("https://i.redd.it/uk4of4ovgtc51.jpg");
+  background-image: url("https://wallpaperaccess.com/full/1385607.jpg");
+  // background-image: url("https://wallpapercave.com/wp/wp9247430.jpg");
 }
 
 .btn-login {

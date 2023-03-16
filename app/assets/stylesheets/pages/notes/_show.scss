@@ -1,3 +1,10 @@
+.note-show-page-body {
+  // background: linear-gradient(to right, #a905a9, #a3fa44);
+  // background-image: url("https://i.redd.it/uk4of4ovgtc51.jpg");
+  // background-image: url("https://wallpaperaccess.com/full/1385607.jpg");
+  // background-image: url("https://wallpapercave.com/wp/wp9247430.jpg");
+}
+
 .carousel-container {
 
   opacity: 0;
@@ -177,7 +184,8 @@
 #music-container {
   position: relative;
   margin-bottom: 40px !important;
-  text-align:center
+  text-align:center;
+  z-index: 999;
 }
 
 .reminder-form {
