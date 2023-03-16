@@ -78,10 +78,10 @@ class NotesController < ApplicationController
       next if sentence.like
 
       sentence.like = true
+      sentence.save
       sentence.ai_image.purge_later # Delete images from cloudinary and activerecord
       response = client.images.generate(parameters: { prompt: sentence.text, size: "256x256", n: 1 })
       sentence.ai_image.attach(filename: "item.jpg", io: URI.parse(response["data"][0]["url"]).open)
-      sentence.save
     end
     @note.save
 
