@@ -187,7 +187,7 @@
     <div class="pop-up-msg-box-container">
       <div class="pop-up-msg-box">
         <div class="pop-up-msg-box-top mb-2">
-          <h2 class="fav-btn" style="cursor:pointer;" data-action="click->pop-up-msg#addFav"><strong>+Favourite</strong></h2>
+          <p class="fav-btn" style="cursor:pointer;" data-action="click->pop-up-msg#addFav"><strong><%= @note.created_at.strftime("%b %e, %Y") %></strong></p>
           <p class="close-btn" style="cursor:pointer;" data-action="click->pop-up-msg#closeMsg"><strong>Close</strong></p>
         </div>
         <p><%= @note.text %></p>

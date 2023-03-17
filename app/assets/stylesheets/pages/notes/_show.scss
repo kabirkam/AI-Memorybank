@@ -77,7 +77,8 @@
     opacity: 0;
     visibility: hidden;
 
-    background-color: black;
+    // background-color: black;
+    background: rgba(0,0,0,0.5);
     opacity: 0.8;
     position: fixed;
     top: 0;
@@ -106,7 +107,8 @@
     // transform: translateY(-70px);
     background-color: #f1f3f4;
     border-radius: 10px;
-    box-shadow: 0 0 0 8px rgba(147, 255, 130, 0.321);
+    box-shadow: 0 0 0 2px #c83200;
+    // box-shadow: 0 1px 2px #c83200;
   }
 
 
@@ -119,7 +121,7 @@
 }
 
 p {
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  // font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 17px
 }
 
