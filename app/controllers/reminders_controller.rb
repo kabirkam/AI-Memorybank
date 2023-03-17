@@ -1,25 +1,29 @@
 class RemindersController < ApplicationController
   def create
     @note = Note.find(params[:note_id])
-    if @note.reminder.nil?
+    if reminder_params['date_time'].empty?
+      flash[:notice] = "reminder cleared!"
+    else
       puts "creating new reminder"
       @reminder = Reminder.new(date_time: reminder_params['date_time'].to_datetime)
       @note.reminder = @reminder
       @note.save
       flash[:notice] = "reminder saved!"
-      # flash[:message] = "reminder saved!"
-    else
-      flash[:notice] = "reminder already exists!"
     end
     redirect_to request.referrer
   end
 
   def update
     @note = Note.find(params[:note_id])
-    @reminder = Reminder.new(date_time: reminder_params['date_time'].to_datetime)
-    @note.reminder = @reminder
-    @note.save
-    flash[:notice] = "reminder saved!"
+    if reminder_params['date_time'].empty?
+      @note.reminder.destroy
+      flash[:notice] = "reminder cleared!"
+    else
+      @reminder = Reminder.new(date_time: reminder_params['date_time'].to_datetime)
+      @note.reminder = @reminder
+      @note.save
+      flash[:notice] = "reminder saved!"
+    end
     redirect_to request.referrer
   end
 

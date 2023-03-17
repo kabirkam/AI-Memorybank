@@ -335,9 +335,9 @@
     <div class="modal-content">
       <div class="modal-body nav-menu">
         <div class="fa-regular container reminder-form button-submenu button-85">
-          <div data-controller="reminders">
+          <div data-controller="reminders2">
             <%= simple_form_for [@note, @reminder] do |f| %>
-              <%= f.input :date_time, as: :string, label: false, data: { behavior: "flatpickr" } %>
+              <%= f.input :date_time, as: :string, label: false, data: { behavior: "flatpickr" }, input_html: {id: "reminder2_date_time"} %>
               <%= f.submit 'Set Reminder',  :class => "button-85" %>
             <% end %>
           </div>

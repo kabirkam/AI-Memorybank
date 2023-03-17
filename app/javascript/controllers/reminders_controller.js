@@ -6,7 +6,7 @@ import flatpickr from 'flatpickr'
 // Connects to data-controller="reminders"
 export default class extends Controller {
   connect() {
-    console.log('in the reminders controller');
+    console.log('in the reminders1 controller');
     const myDate = document.getElementById("reminder_date_time");
 
     flatpickr(myDate, {
