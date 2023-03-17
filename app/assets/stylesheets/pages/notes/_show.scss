@@ -258,3 +258,42 @@ p {
   }
 
 }
+
+.fixed-bottom {
+  position: absolute;
+  bottom:0;
+  width: 100%;
+  // justify-items: auto;
+  // justify-content: space-evenly;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  --bs-navbar-padding-y: 0
+}
+
+.nav-link-2-icons {
+  margin-right: 36px;
+  margin-left: 23px;
+  font-size: 30px !important;
+}
+
+#nav-link-2-mic-icon {
+  font-size: 30px !important;
+}
+
+#navbar-2 {
+  height: 8vh;
+  width: 100%;
+  background-color: black !important;
+  --bs-navbar-toggler-padding-x: 0;
+  color: red
+}
+
+#navbar-toggler-icon-2 {
+  margin-right: 4px;
+  margin-left: -18px;
+  background-size: 80%;
+  vertical-align: unset;
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger6.svg?color=700');
+  filter: invert(-1%) sepia(100%) saturate(2514%) hue-rotate(12deg) brightness(102%) contrast(102%);
+}
